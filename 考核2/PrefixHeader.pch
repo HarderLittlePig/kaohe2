@@ -1,0 +1,58 @@
+//
+//  PrefixHeader.pch
+//  考核2
+//
+//  Created by iOS 开发 on 2018/9/30.
+//  Copyright © 2018年 iOS 开发. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+
+#import "UIView+Category.h"
+#import <MJRefresh.h>
+#import <Masonry.h>
+#import <SVProgressHUD.h>
+
+
+//颜色
+#define kREDCOLOR [UIColor redColor]
+#define kWHITECOLOR [UIColor whiteColor]
+#define kGRAYCOLOR [UIColor grayColor]
+#define kBLACKCOLOR [UIColor blackColor]
+#define kORANGECOLOR [UIColor orangeColor]
+
+//尺寸
+#define kSCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define kSCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+#define kSCREENBOUNDS [UIScreen mainScreen].bounds
+
+//自适应高度和宽带
+#define Iphone6ScaleHeight kSCREENHEIGHT/667.0
+#define Iphone6ScaleWidth kSCREENWIDTH/375.0
+
+// 判断是否是iPhone X
+#define iPhoneX (kSCREENWIDTH == 375.f && kSCREENHEIGHT == 812.f ? YES : NO)
+
+//是否是iPhone X系列机型
+//#define iPhoneXSeries
+
+//状态栏高度
+#define kSTATUSBARHEIGH CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
+
+//导航栏高度
+#define kNAVIGTAIONBARHEIGHT (iPhoneX ? 88.f : 64.f)
+// tabBar高度
+#define TAB_BAR_HEIGHT (iPhoneX ? (49.f+34.f) : 49.f)
+
+// home indicator
+#define HOME_INDICATOR_HEIGHT (iPhoneX ? 34.f : 0.f)
+
+//字体大小
+#define kFONT(r) [UIFont systemFontOfSize:r]
+
+#endif /* PrefixHeader_pch */
