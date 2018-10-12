@@ -49,7 +49,7 @@
                 <outlet property="redLine" destination="StM-XV-Fhm" id="yn1-1r-lyJ"/>
                 <outlet property="title" destination="WlR-qK-IPa" id="bil-TG-Mpq"/>
             </connections>
-            <point key="canvasLocation" x="-273.5" y="1.5"/>
+            <point key="canvasLocation" x="-73" y="-34"/>
         </tableViewCell>
     </objects>
 </document>

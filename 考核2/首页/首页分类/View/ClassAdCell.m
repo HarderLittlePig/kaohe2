@@ -21,6 +21,8 @@
     CGRect fram = frame;
     fram.origin.x += 10;
     fram.size.width -= 20;
+    fram.origin.y += 8;
+    fram.size.height -= 8;
     frame = fram;
     return [super setFrame:frame];
 }

@@ -30,16 +30,10 @@
     _classButton = [[UIButton alloc]init];
     _classButton.titleLabel.font = kFONT(9);
     
-//    _classButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//    [_classButton setTitleEdgeInsets:UIEdgeInsetsMake(_classButton.imageView.frame.size.height ,-_classButton.imageView.frame.size.width, 0.0,0.0)];
-//    [_classButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -_classButton.titleLabel.bounds.size.width)];
-    
-    
     // button标题的偏移量
     _classButton.titleEdgeInsets = UIEdgeInsetsMake(_classButton.imageView.frame.size.height+5, -_classButton.imageView.bounds.size.width, 0,0);
     // button图片的偏移量
     _classButton.imageEdgeInsets = UIEdgeInsetsMake(0, _classButton.titleLabel.frame.size.width/2, _classButton.titleLabel.frame.size.height+5, -_classButton.titleLabel.frame.size.width/2);
-    
     
     
     _classButton.frame = CGRectMake(self.width - 37, kSTATUSBARHEIGH, 37, self.height -kSTATUSBARHEIGH);
@@ -58,9 +52,9 @@
     UIImageView *searchImg = [[UIImageView alloc]initWithFrame:CGRectMake(20, (bgView.height - 14)*0.5, 14, 14)];
     searchImg.image = [UIImage imageNamed:@"xwzx_ss"];
     [bgView addSubview:searchImg];
-    
+
     _inputField = [[UITextField alloc]initWithFrame:CGRectMake(38, 0, bgView.width - 38 - 20, bgView.frame.size.height)];
-    _inputField.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:15];
+    _inputField.font = kFONT(15);
     _inputField.returnKeyType = UIReturnKeySearch;
     _inputField.placeholder = @"请输入关键字";
     _inputField.tintColor = kBLACKCOLOR;
@@ -69,6 +63,14 @@
     [bgView addSubview:_inputField];
 }
 
+//输入框获取到焦点
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if ([_delegate respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
+        [self.delegate textFieldDidBeginEditing:self];
+    }
+}
+
+//确定按钮
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     if ([_delegate respondsToSelector:@selector(searchBarSearchButtonClicked:)]) {
         [self.delegate searchBarSearchButtonClicked:self];

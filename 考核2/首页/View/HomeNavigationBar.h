@@ -14,7 +14,11 @@
 
 @optional
 
-- (void)searchBarSearchButtonClicked:(HomeNavigationBar *)searchBar;//确定按钮
+//输入框获取到焦点
+- (void)textFieldDidBeginEditing:(HomeNavigationBar *)searchBar;
+//确定按钮
+- (void)searchBarSearchButtonClicked:(HomeNavigationBar *)searchBar;
+
 @end
 
 typedef void(^backBlock)(void);

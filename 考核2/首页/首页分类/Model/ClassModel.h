@@ -15,12 +15,12 @@
 @property(nonatomic,copy)NSString *publishTime;
 @property(nonatomic,strong)NSArray *imageArray;
 //是否置顶
-@property(nonatomic,assign)BOOL *isTopping;
+@property(nonatomic,assign)BOOL isTopping;
 //是否热门
-@property(nonatomic,assign)BOOL *isPopular;
+@property(nonatomic,assign)BOOL isPopular;
 //是否大图
-@property(nonatomic,assign)BOOL *isLargePicture;
+@property(nonatomic,assign)BOOL isLargePicture;
 //是否广告
-@property(nonatomic,assign)BOOL *isAd;
+@property(nonatomic,assign)BOOL isAd;
 
 @end

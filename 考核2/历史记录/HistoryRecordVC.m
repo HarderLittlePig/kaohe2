@@ -270,7 +270,7 @@
         UILabel *label = [[UILabel alloc] init];
         label.frame = CGRectMake(22,141,81.5,13.5);
         label.text = @"    暂无历史记录";
-        label.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:14];
+        label.font = kFONT(14);
         label.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         if (self.titleArray.count == 0) {
             self.collectionView.backgroundView = label;

@@ -16,18 +16,46 @@
     return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(ClassContentCell2.class)];
 }
 
+-(void)setModel:(ClassModel *)model{
+    _model = model;
+    
+    NSMutableParagraphStyle *style = [NSParagraphStyle defaultParagraphStyle].mutableCopy;
+    style.lineSpacing = 4;
+    NSAttributedString *string = [[NSAttributedString alloc]initWithString:model.title attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style}];
+    _contentTitle.attributedText = string;
+
+//    _contentTopping.hidden = !model.isTopping;
+//    _contentPopular.hidden =!model.isPopular;
+
+
+    [_contentCount setTitle:model.lookCount forState:UIControlStateNormal];
+    _contentTime.text = model.publishTime;
+
+    
+    if (!model.isTopping && !model.isPopular) {
+        _contentPopular.hidden = YES;
+        
+        [self.contentCount mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.offset(10);
+        }];
+    }else if (model.isTopping){
+        [self.contentCount setTitle:@"置顶" forState:UIControlStateNormal];
+        [self.contentCount setBackgroundImage:[UIImage imageNamed:@"xwzx_zd"] forState:UIControlStateNormal];
+    }else if (model.isPopular){
+        [self.contentCount setTitle:@" 热门" forState:UIControlStateNormal];
+        [self.contentCount setImage:[UIImage imageNamed:@"xwzx_rm"] forState:UIControlStateNormal];
+    }
+    
+}
 
 -(void)setFrame:(CGRect)frame{
     CGRect fram = frame;
     fram.origin.x += 10;
+    fram.origin.y += 8;
     fram.size.width -= 20;
     fram.size.height -= 8;
     frame = fram;
     return [super setFrame:frame];
-}
-
-- (void)setModel:(ClassModel *)model{
-    
 }
 
 - (void)awakeFromNib {

@@ -80,7 +80,7 @@
         [titleButton setTitle:self.childViewControllers[i].title forState:UIControlStateNormal];
         [titleButton setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateSelected];
         [titleButton setTitleColor:[UIColor colorWithRed:139/255.0 green:150/255.0 blue:158/255.0 alpha:1] forState:UIControlStateNormal];
-        titleButton.titleLabel.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:15];
+        titleButton.titleLabel.font = kFONT(15);
         [titleButton.titleLabel sizeToFit];
         [titleButton.titleLabel sizeThatFits:CGSizeMake(kSCREENWIDTH, 2)];
         
@@ -180,9 +180,7 @@
     [self.titleView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
-
-
--(void)searchBarSearchButtonClicked:(HomeNavigationBar *)searchBar{
+-(void)textFieldDidBeginEditing:(HomeNavigationBar *)searchBar{
     HistorySearchVC *ccc = [[HistorySearchVC alloc]init];
     [self.navigationController pushViewController:ccc animated:YES];
 }

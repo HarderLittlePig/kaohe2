@@ -57,7 +57,7 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一天前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSV-et-jwL">
-                        <rect key="frame" x="146" y="145" width="34" height="15"/>
+                        <rect key="frame" x="126" y="145" width="34" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="CJ0-9x-pqK"/>
                         </constraints>
@@ -66,13 +66,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aT1-ld-xv8">
-                        <rect key="frame" x="71" y="144.5" width="60" height="15"/>
+                        <rect key="frame" x="66" y="144.5" width="55" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="jj9-WU-bpW"/>
+                            <constraint firstAttribute="width" constant="55" id="jj9-WU-bpW"/>
                             <constraint firstAttribute="height" constant="15" id="vzu-Jm-zLS"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <state key="normal" title=" 126次" image="xwzx_yd">
+                        <state key="normal" title=" 1126次" image="xwzx_yd">
                             <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
@@ -80,7 +80,7 @@
                 <constraints>
                     <constraint firstItem="NSV-et-jwL" firstAttribute="top" secondItem="j6Q-ZP-IRU" secondAttribute="bottom" constant="15" id="0TW-hM-gqD"/>
                     <constraint firstItem="hfU-Df-V8Q" firstAttribute="leading" secondItem="j6Q-ZP-IRU" secondAttribute="trailing" constant="10" id="2Is-IU-56K"/>
-                    <constraint firstItem="NSV-et-jwL" firstAttribute="leading" secondItem="aT1-ld-xv8" secondAttribute="trailing" constant="15" id="4C0-Wh-qZw"/>
+                    <constraint firstItem="NSV-et-jwL" firstAttribute="leading" secondItem="aT1-ld-xv8" secondAttribute="trailing" constant="5" id="4C0-Wh-qZw"/>
                     <constraint firstItem="mZL-bq-q8q" firstAttribute="top" secondItem="N6R-lG-LTv" secondAttribute="bottom" constant="10" id="4Px-KD-25B"/>
                     <constraint firstItem="j6Q-ZP-IRU" firstAttribute="width" secondItem="mZL-bq-q8q" secondAttribute="width" id="8Ar-ds-IaP"/>
                     <constraint firstItem="hfU-Df-V8Q" firstAttribute="height" secondItem="mZL-bq-q8q" secondAttribute="height" id="8Dk-GM-IGo"/>
@@ -88,7 +88,7 @@
                     <constraint firstAttribute="trailing" secondItem="hfU-Df-V8Q" secondAttribute="trailing" constant="10" id="Bah-kP-3Z3"/>
                     <constraint firstItem="dfW-oq-Aeg" firstAttribute="top" secondItem="mZL-bq-q8q" secondAttribute="bottom" constant="15" id="CkT-Aq-tFP"/>
                     <constraint firstAttribute="trailing" secondItem="N6R-lG-LTv" secondAttribute="trailing" constant="10" id="HWP-IM-gMN"/>
-                    <constraint firstItem="aT1-ld-xv8" firstAttribute="leading" secondItem="dfW-oq-Aeg" secondAttribute="trailing" constant="15" id="PYw-zk-MGO"/>
+                    <constraint firstItem="aT1-ld-xv8" firstAttribute="leading" secondItem="dfW-oq-Aeg" secondAttribute="trailing" constant="10" id="PYw-zk-MGO"/>
                     <constraint firstItem="j6Q-ZP-IRU" firstAttribute="leading" secondItem="mZL-bq-q8q" secondAttribute="trailing" constant="10" id="QTa-lp-bt0"/>
                     <constraint firstItem="mZL-bq-q8q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="R1D-Z8-YNe"/>
                     <constraint firstItem="j6Q-ZP-IRU" firstAttribute="top" secondItem="N6R-lG-LTv" secondAttribute="bottom" constant="10" id="Ucy-OU-SCQ"/>
@@ -109,7 +109,7 @@
                 <outlet property="contentTime" destination="NSV-et-jwL" id="V2f-Uh-Fnx"/>
                 <outlet property="contentTitle" destination="N6R-lG-LTv" id="XsX-pv-Z8c"/>
             </connections>
-            <point key="canvasLocation" x="205" y="-8"/>
+            <point key="canvasLocation" x="52.5" y="-209.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -44,7 +44,7 @@
     [bgView addSubview:searchImg];
     
     _inputField = [[UITextField alloc]initWithFrame:CGRectMake(38, 0, bgView.width - 38 - 20, bgView.frame.size.height)];
-    _inputField.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:15];
+    _inputField.font = kFONT(15);
     _inputField.returnKeyType = UIReturnKeySearch;
     _inputField.placeholder = @"油气回收装置";
     _inputField.tintColor = kBLACKCOLOR;

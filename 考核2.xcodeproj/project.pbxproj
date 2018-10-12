@@ -43,6 +43,10 @@
 		D56A87C121607C5900545B6F /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C021607C5900545B6F /* UIView+Category.m */; };
 		D56A87C521609F9F00545B6F /* MyChannelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C421609F9F00545B6F /* MyChannelVC.m */; };
 		D56A87C82160A07900545B6F /* ClassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C72160A07900545B6F /* ClassVC.m */; };
+		D578CD262170828E00327FCD /* HistorySearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D578CD242170828E00327FCD /* HistorySearchCell.m */; };
+		D578CD272170828E00327FCD /* HistorySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D578CD252170828E00327FCD /* HistorySearchCell.xib */; };
+		D578CD2B2170839300327FCD /* HistorySearchReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D578CD292170839300327FCD /* HistorySearchReusableView.m */; };
+		D578CD2C2170839300327FCD /* HistorySearchReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D578CD2A2170839300327FCD /* HistorySearchReusableView.xib */; };
 		D583B8BC216ADF0E00D848C3 /* UIScrollView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D583B8BB216ADF0E00D848C3 /* UIScrollView+Category.m */; };
 		D583B8C1216AF03000D848C3 /* ClassContentCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = D583B8C0216AF03000D848C3 /* ClassContentCell1.m */; };
 /* End PBXBuildFile section */
@@ -130,6 +134,12 @@
 		D56A87C421609F9F00545B6F /* MyChannelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyChannelVC.m; sourceTree = "<group>"; };
 		D56A87C62160A07900545B6F /* ClassVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassVC.h; sourceTree = "<group>"; };
 		D56A87C72160A07900545B6F /* ClassVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassVC.m; sourceTree = "<group>"; };
+		D578CD232170828E00327FCD /* HistorySearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchCell.h; sourceTree = "<group>"; };
+		D578CD242170828E00327FCD /* HistorySearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchCell.m; sourceTree = "<group>"; };
+		D578CD252170828E00327FCD /* HistorySearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySearchCell.xib; sourceTree = "<group>"; };
+		D578CD282170839300327FCD /* HistorySearchReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchReusableView.h; sourceTree = "<group>"; };
+		D578CD292170839300327FCD /* HistorySearchReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchReusableView.m; sourceTree = "<group>"; };
+		D578CD2A2170839300327FCD /* HistorySearchReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySearchReusableView.xib; sourceTree = "<group>"; };
 		D583B8BA216ADF0E00D848C3 /* UIScrollView+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Category.h"; sourceTree = "<group>"; };
 		D583B8BB216ADF0E00D848C3 /* UIScrollView+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Category.m"; sourceTree = "<group>"; };
 		D583B8BF216AF03000D848C3 /* ClassContentCell1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassContentCell1.h; sourceTree = "<group>"; };
@@ -374,9 +384,23 @@
 			children = (
 				D551DEFF216C774D00F9EAEF /* HistorySearchVC.h */,
 				D551DF00216C774D00F9EAEF /* HistorySearchVC.m */,
+				D578CD222170826100327FCD /* View */,
 				D5405177216DE8A0001C44B0 /* 资讯-搜索结果 */,
 			);
 			path = "历史搜索";
+			sourceTree = "<group>";
+		};
+		D578CD222170826100327FCD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D578CD232170828E00327FCD /* HistorySearchCell.h */,
+				D578CD242170828E00327FCD /* HistorySearchCell.m */,
+				D578CD252170828E00327FCD /* HistorySearchCell.xib */,
+				D578CD282170839300327FCD /* HistorySearchReusableView.h */,
+				D578CD292170839300327FCD /* HistorySearchReusableView.m */,
+				D578CD2A2170839300327FCD /* HistorySearchReusableView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D583B8BD216AEFBB00D848C3 /* 首页分类 */ = {
@@ -512,6 +536,8 @@
 			files = (
 				D56A878A216067B400545B6F /* LaunchScreen.storyboard in Resources */,
 				D551DF0C216C870700F9EAEF /* MyChannelCell.xib in Resources */,
+				D578CD2C2170839300327FCD /* HistorySearchReusableView.xib in Resources */,
+				D578CD272170828E00327FCD /* HistorySearchCell.xib in Resources */,
 				D551DF15216CA74600F9EAEF /* HistoryRecordReusableView.xib in Resources */,
 				D56A8787216067B400545B6F /* Assets.xcassets in Resources */,
 				D56A8785216067AB00545B6F /* Main.storyboard in Resources */,
@@ -589,6 +615,7 @@
 				D56A87C521609F9F00545B6F /* MyChannelVC.m in Sources */,
 				D583B8BC216ADF0E00D848C3 /* UIScrollView+Category.m in Sources */,
 				D56A87BE216074C000545B6F /* HomeNavigationBar.m in Sources */,
+				D578CD262170828E00327FCD /* HistorySearchCell.m in Sources */,
 				D5405174216D9261001C44B0 /* HistoryRecordCell.m in Sources */,
 				D551DF0B216C870700F9EAEF /* MyChannelCell.m in Sources */,
 				D583B8C1216AF03000D848C3 /* ClassContentCell1.m in Sources */,
@@ -609,6 +636,7 @@
 				D56A87C82160A07900545B6F /* ClassVC.m in Sources */,
 				D540517A216DF239001C44B0 /* ClassSearchVC.m in Sources */,
 				D56A877F216067AB00545B6F /* AppDelegate.m in Sources */,
+				D578CD2B2170839300327FCD /* HistorySearchReusableView.m in Sources */,
 				D526B608216AFDC700CB2E6B /* ClassAdCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

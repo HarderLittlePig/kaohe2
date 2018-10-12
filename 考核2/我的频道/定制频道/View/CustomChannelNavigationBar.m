@@ -15,7 +15,7 @@
         self.frame = CGRectMake(0, 0, kSCREENWIDTH, kNAVIGTAIONBARHEIGHT);
         self.backgroundColor = kWHITECOLOR;
         self.layer.borderWidth = 1;
-        self.layer.borderColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1].CGColor;
+        self.layer.borderColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1].CGColor;
         
         [self addView];
     }
@@ -52,7 +52,7 @@
     [bgView addSubview:searchImg];
     
     _inputField = [[UITextField alloc]initWithFrame:CGRectMake(38, 0, bgView.width - 38 - 20, bgView.frame.size.height)];
-    _inputField.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:15];
+    _inputField.font = kFONT(15);
     _inputField.delegate = self;
     _inputField.placeholder = @"请输入关键字搜索行业";
     _inputField.tintColor = kBLACKCOLOR;
