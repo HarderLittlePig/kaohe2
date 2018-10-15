@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    //这里需要设置一个背景色吗,否则头的位置是不对的,奇怪,不知道是为什么
+    self.backgroundColor = kWHITECOLOR;
+    
     self.sectionLab.font = kFONT(14);
     self.sectionLab.textColor = [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1];
     

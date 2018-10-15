@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ClassSearchVC : UIViewController
-
+@property(nonatomic,copy)NSString *searchBarContent;
 @end

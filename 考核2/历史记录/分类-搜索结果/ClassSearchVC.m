@@ -50,6 +50,7 @@
     bar.delegate = self;
     [bar.determineButton setTitle:@"搜索" forState:UIControlStateNormal];
     [bar.inputField becomeFirstResponder];
+    bar.inputField.text = self.searchBarContent;
     [bar.determineButton setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateNormal];
     bar.backBlock = ^{
         [self.navigationController popViewControllerAnimated:YES];
@@ -64,12 +65,14 @@
     [self.view addSubview:bar];
 }
 
+
 -(void)searchBarSearchButtonClicked:(CustomChannelNavigationBar *)searchBar{
-    NSLog(@"点击了键盘搜索");
+    [self.view makeToast:@"点击了键盘搜索" duration:1 position:CSToastPositionCenter];
 }
 
 -(void)searchBar:(CustomChannelNavigationBar *)searchBar textDidChange:(NSString *)searchText{
-    NSLog(@"输入内容为%@，请求新数据刷新UI",searchText);
+//    NSLog(@"输入内容%@，请求新数据刷新UI",searchText);
+    [self.view makeToast:searchText duration:1 position:CSToastPositionCenter];
 }
 
 -(UITableView *)table{

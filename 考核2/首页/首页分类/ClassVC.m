@@ -74,10 +74,11 @@
 -(void)requestMoreData{
     self.table.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.table.mj_footer endRefreshing];
+//            [self.table.mj_footer endRefreshing];
             [self.table.mj_footer endRefreshingWithNoMoreData];
-//            [self.table.mj_footer setState:MJRefreshStateNoMoreData];
+            [self.table.mj_footer setState:MJRefreshStateNoMoreData];
 //            [self.table.mj_footer resetNoMoreData];
+            
         });
         [self.table.mj_footer beginRefreshing];
     }];
@@ -106,7 +107,7 @@
 
     ClassAdCell *adcell = [ClassAdCell createCellWithTableView:tableView];
     adcell.jumpBlock = ^{
-        [SVProgressHUD showSuccessWithStatus:@"了解详情"];
+        [self.view makeToast:@"了解详情" duration:1.0f position:CSToastPositionCenter];
     };
     
     ClassContentCell1 *contentcell1 = [ClassContentCell1 createCellWithTableView:tableView];

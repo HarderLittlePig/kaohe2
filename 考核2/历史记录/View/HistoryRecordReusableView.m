@@ -19,8 +19,7 @@
     self.title.text = @"历史记录";
     self.title.font = kFONT(15);
     self.title.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [self.deleteBtn addTarget:self action:@selector(deleteHistoryRecord) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.deleteBtn addTarget:self action:@selector(deleteHistoryRecord) forControlEvents:UIControlEventTouchUpInside];    
 }
 
 -(void)deleteHistoryRecord{

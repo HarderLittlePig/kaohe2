@@ -45,6 +45,7 @@
     
     _inputField = [[UITextField alloc]initWithFrame:CGRectMake(38, 0, bgView.width - 38 - 20, bgView.frame.size.height)];
     _inputField.font = kFONT(15);
+    _inputField.delegate = self;
     _inputField.returnKeyType = UIReturnKeySearch;
     _inputField.placeholder = @"油气回收装置";
     _inputField.tintColor = kBLACKCOLOR;
@@ -53,12 +54,19 @@
     
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if ([_delegate respondsToSelector:@selector(searchBarSearchButtonClicked:)]) {
-        [self.delegate searchBarSearchButtonClicked:self];
+//输入框获取到焦点
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if ([_delegate respondsToSelector:@selector(textFieldDidBeginEditing:)]) {
+        [self.delegate textFieldDidBeginEditing:self];
     }
-    return YES;
 }
+
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    if ([_delegate respondsToSelector:@selector(searchBarSearchButtonClicked:)]) {
+//        [self.delegate searchBarSearchButtonClicked:self];
+//    }
+//    return YES;
+//}
 
 -(void)backAction{
     self.backBlock ? self.backBlock() : nil;

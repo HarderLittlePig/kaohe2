@@ -14,12 +14,15 @@
 
 @optional
 
-- (void)searchBarSearchButtonClicked:(HistoryRecordNavigationBar *)searchBar;//确定按钮
+//输入框获取到焦点
+- (void)textFieldDidBeginEditing:(HistoryRecordNavigationBar *)searchBar;
+
+//- (void)searchBarSearchButtonClicked:(HistoryRecordNavigationBar *)searchBar;//确定按钮
 @end
 
 
 typedef void(^backBlock)(void);
-@interface HistoryRecordNavigationBar : UIView
+@interface HistoryRecordNavigationBar : UIView<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton *backButton;
 @property(nonatomic,strong)UITextField *inputField;

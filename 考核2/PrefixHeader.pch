@@ -17,6 +17,7 @@
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import <SVProgressHUD.h>
+#import "UIView+Toast.h"
 
 
 //颜色

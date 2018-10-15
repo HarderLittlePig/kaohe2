@@ -16,6 +16,7 @@
 @property(nonatomic,weak)UIButton *customChannelBtn;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *titleArray;
+@property(nonatomic,assign)BOOL isBack;
 @end
 
 @implementation MyChannelVC
@@ -73,6 +74,7 @@
     }];
     
     self.titleArray = @[@"推荐",@"机械",@"服装",@"电子电子电子电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"].mutableCopy;
+    _isBack = YES;
     
     /*
     //每一行的数
@@ -109,11 +111,6 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"MyChannelCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [bgView addSubview:_collectionView];
     
-    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(moveAction:)];
-    _collectionView.userInteractionEnabled = YES;
-    [_collectionView addGestureRecognizer:longPressGesture];
-    
-
     
     
     UIButton *resetChannelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -210,7 +207,9 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [self dismissAction];
+    if (_isBack) {
+        [self dismissAction];
+    }
 }
 
 //重置
@@ -229,14 +228,20 @@
     
     //按钮是否显示
     self.resetChannelBtn.hidden = sender.selected;
-    self.customChannelBtn.hidden = sender.selected;
-    //是否可以拖动或者是否可以删除
-    _collectionView.userInteractionEnabled = sender.selected;
+    self.customChannelBtn.hidden = sender.selected;   
+    
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(moveAction:)];
     
     if (sender.selected) {
         self.promptLab.text = @"拖动频道可以排序";
+        [_collectionView addGestureRecognizer:longPressGesture];
+        //标记是否可以返回
+        _isBack = NO;
+        
     }else{
         self.promptLab.text = @"点击进入频道";
+        [_collectionView removeGestureRecognizer:longPressGesture];
+        _isBack = YES;
     }
 
 }

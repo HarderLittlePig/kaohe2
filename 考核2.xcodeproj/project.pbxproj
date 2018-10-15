@@ -29,6 +29,8 @@
 		D551DF10216C9E9300F9EAEF /* HistoryRecordNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D551DF0F216C9E9300F9EAEF /* HistoryRecordNavigationBar.m */; };
 		D551DF14216CA74600F9EAEF /* HistoryRecordReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D551DF12216CA74600F9EAEF /* HistoryRecordReusableView.m */; };
 		D551DF15216CA74600F9EAEF /* HistoryRecordReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D551DF13216CA74600F9EAEF /* HistoryRecordReusableView.xib */; };
+		D558F4BA2174229E00EA2C57 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D558F4B92174229D00EA2C57 /* UIView+Toast.m */; };
+		D558F4C1217478EE00EA2C57 /* HistorySearchFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D558F4C0217478EE00EA2C57 /* HistorySearchFlowLayout.m */; };
 		D56A877F216067AB00545B6F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A877E216067AB00545B6F /* AppDelegate.m */; };
 		D56A8782216067AB00545B6F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A8781216067AB00545B6F /* ViewController.m */; };
 		D56A8785216067AB00545B6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D56A8783216067AB00545B6F /* Main.storyboard */; };
@@ -105,6 +107,10 @@
 		D551DF11216CA74600F9EAEF /* HistoryRecordReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryRecordReusableView.h; sourceTree = "<group>"; };
 		D551DF12216CA74600F9EAEF /* HistoryRecordReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryRecordReusableView.m; sourceTree = "<group>"; };
 		D551DF13216CA74600F9EAEF /* HistoryRecordReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryRecordReusableView.xib; sourceTree = "<group>"; };
+		D558F4B82174229D00EA2C57 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		D558F4B92174229D00EA2C57 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		D558F4BF217478EE00EA2C57 /* HistorySearchFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchFlowLayout.h; sourceTree = "<group>"; };
+		D558F4C0217478EE00EA2C57 /* HistorySearchFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchFlowLayout.m; sourceTree = "<group>"; };
 		D56A877A216067AB00545B6F /* 考核2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "考核2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56A877D216067AB00545B6F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D56A877E216067AB00545B6F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -262,6 +268,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D558F4B72174229D00EA2C57 /* toast */ = {
+			isa = PBXGroup;
+			children = (
+				D558F4B82174229D00EA2C57 /* UIView+Toast.h */,
+				D558F4B92174229D00EA2C57 /* UIView+Toast.m */,
+			);
+			path = toast;
+			sourceTree = "<group>";
+		};
 		D56A8771216067AB00545B6F = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +310,7 @@
 				D56A87C021607C5900545B6F /* UIView+Category.m */,
 				D583B8BA216ADF0E00D848C3 /* UIScrollView+Category.h */,
 				D583B8BB216ADF0E00D848C3 /* UIScrollView+Category.m */,
+				D558F4B72174229D00EA2C57 /* toast */,
 				D56A87BB2160723500545B6F /* PrefixHeader.pch */,
 				D56A87CA2160B93A00545B6F /* 历史搜索 */,
 				D56A87C92160B92800545B6F /* 历史记录 */,
@@ -382,6 +398,8 @@
 		D56A87CA2160B93A00545B6F /* 历史搜索 */ = {
 			isa = PBXGroup;
 			children = (
+				D558F4BF217478EE00EA2C57 /* HistorySearchFlowLayout.h */,
+				D558F4C0217478EE00EA2C57 /* HistorySearchFlowLayout.m */,
 				D551DEFF216C774D00F9EAEF /* HistorySearchVC.h */,
 				D551DF00216C774D00F9EAEF /* HistorySearchVC.m */,
 				D578CD222170826100327FCD /* View */,
@@ -627,11 +645,13 @@
 				D56A87B521606C3000545B6F /* NavigationController.m in Sources */,
 				D551DF14216CA74600F9EAEF /* HistoryRecordReusableView.m in Sources */,
 				D551DEF8216C4F1600F9EAEF /* CustomChannelNavigationBar.m in Sources */,
+				D558F4BA2174229E00EA2C57 /* UIView+Toast.m in Sources */,
 				D551DEF4216C4B7900F9EAEF /* CustomChannelVC.m in Sources */,
 				D526B603216AF64E00CB2E6B /* ClassModel.m in Sources */,
 				D551DEFE216C772E00F9EAEF /* HistoryRecordVC.m in Sources */,
 				D551DF10216C9E9300F9EAEF /* HistoryRecordNavigationBar.m in Sources */,
 				D56A878D216067B400545B6F /* main.m in Sources */,
+				D558F4C1217478EE00EA2C57 /* HistorySearchFlowLayout.m in Sources */,
 				D56A87B921606EC300545B6F /* HomeVC.m in Sources */,
 				D56A87C82160A07900545B6F /* ClassVC.m in Sources */,
 				D540517A216DF239001C44B0 /* ClassSearchVC.m in Sources */,
