@@ -10,8 +10,9 @@
 #import "ClassContentCell1.h"
 #import "ClassContentCell2.h"
 #import "ClassAdCell.h"
-
 #import "ClassModel.h"
+
+#import "IndustryInformationDetailsVC.h"
 
 @interface ClassVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
@@ -23,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = kWHITECOLOR;
     
     self.view.frame = CGRectMake(0, 0, kSCREENWIDTH,kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 40);
     [self.view addSubview:self.table];
@@ -135,6 +137,11 @@
     }
     
 //    cell.backgroundColor = [UIColor colorWithRed:(arc4random() % 256)/255.0 green:(arc4random() % 256)/255.0 blue:(arc4random() % 256)/255.0 alpha:1];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    IndustryInformationDetailsVC *detail = [[IndustryInformationDetailsVC alloc]init];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 -(UITableView *)table{
