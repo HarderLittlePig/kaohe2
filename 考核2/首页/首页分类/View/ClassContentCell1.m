@@ -12,7 +12,7 @@
 @interface ClassContentCell1()
 @property(nonatomic,weak)UILabel *contentTitle;
 @property(nonatomic,weak)UIButton *contentTopping;
-@property(nonatomic,weak)UIButton *contentPopular;
+//@property(nonatomic,weak)UIButton *contentPopular;
 @property(nonatomic,weak)UILabel *contentTime;
 @property(nonatomic,weak)UIButton *contentCount;
 
@@ -33,16 +33,25 @@
     NSAttributedString *string = [[NSAttributedString alloc]initWithString:model.title attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style}];
     _contentTitle.attributedText = string;
     
-    _contentTopping.hidden = !model.isTopping;
-    _contentPopular.hidden =!model.isPopular;
-    
     
     [_contentCount setTitle:[NSString stringWithFormat:@" %@",model.lookCount] forState:UIControlStateNormal];
     _contentTime.text = model.publishTime;
     
+    
+    if (model.isTopping) {
+        [self.contentTopping setTitle:@"置顶" forState:UIControlStateNormal];
+        [self.contentTopping setBackgroundImage:[UIImage imageNamed:@"xwzx_zd"] forState:UIControlStateNormal];
+    }
+    if (model.isPopular) {
+        [self.contentTopping setTitle:@" 热门" forState:UIControlStateNormal];
+        [self.contentTopping setImage:[UIImage imageNamed:@"xwzx_rm"] forState:UIControlStateNormal];
+        [self.contentTopping setBackgroundImage:nil forState:UIControlStateNormal];
+    }
+    
     //热门和置顶都被隐藏了
-    if (_contentTopping.hidden && _contentPopular.hidden) {
+    if (!model.isTopping && !model.isPopular) {
         
+        self.contentTopping.hidden = YES;
         [self.contentCount mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.offset(10);
         }];
@@ -97,26 +106,8 @@
         [contentTopping sizeToFit];
         self.contentTopping = contentTopping;
         
-        
-        
-        UIButton *contentPopular = [[UIButton alloc] init];
-//        contentPopular.backgroundColor = kORANGECOLOR;
-        [contentPopular setTitle:@" 热门" forState:UIControlStateNormal];
-        contentPopular.titleLabel.font = kFONT(11);
-        [contentPopular setTitleColor:[UIColor colorWithRed:237/255.0 green:49/255.0 blue:49/255.0 alpha:1] forState:UIControlStateNormal];
-        [contentPopular setImage:[UIImage imageNamed:@"xwzx_rm"] forState:UIControlStateNormal];
-        [self.contentView addSubview:contentPopular];
-        [contentPopular mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(contentTitle.mas_bottom).offset(25);
-            make.left.offset(10);
-            make.width.offset(46);
-            make.height.offset(15);
-        }];
-        [contentPopular sizeToFit];
-        self.contentPopular = contentPopular;
-        
+
         UIButton *contentCount = [[UIButton alloc] init];
-//        contentCount.backgroundColor = kORANGECOLOR;
         contentCount.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [contentCount setImage:[UIImage imageNamed:@"xwzx_yd"] forState:UIControlStateNormal];
         contentCount.titleLabel.font = kFONT(11);
@@ -124,12 +115,11 @@
         [self.contentView addSubview:contentCount];
         [contentCount mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(contentTitle.mas_bottom).offset(25);
-            make.left.equalTo(contentPopular.mas_right).offset(10);
+            make.left.equalTo(contentTopping.mas_right).offset(10);
             make.width.offset(46);
             make.height.offset(15);
         }];
         self.contentCount = contentCount;
-        
         
         UILabel *contentTime = [[UILabel alloc] init];
         contentTime.text = @"1小时前";

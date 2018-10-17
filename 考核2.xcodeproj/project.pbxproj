@@ -13,6 +13,8 @@
 		D526B604216AF9C000CB2E6B /* ClassModel.h in Sources */ = {isa = PBXBuildFile; fileRef = D526B601216AF64E00CB2E6B /* ClassModel.h */; };
 		D526B608216AFDC700CB2E6B /* ClassAdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D526B606216AFDC700CB2E6B /* ClassAdCell.m */; };
 		D526B609216AFDC700CB2E6B /* ClassAdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D526B607216AFDC700CB2E6B /* ClassAdCell.xib */; };
+		D538C6582176BC8400EF47F2 /* IndustryInformationDetailsCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = D538C6562176BC8400EF47F2 /* IndustryInformationDetailsCell2.m */; };
+		D538C6592176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = D538C6572176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib */; };
 		D53F59A52175837E005A7F13 /* InformationPersonalPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D53F59A42175837E005A7F13 /* InformationPersonalPageVC.m */; };
 		D53F59A921758FA8005A7F13 /* InformationPersonalPageNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D53F59A821758FA8005A7F13 /* InformationPersonalPageNavigationBar.m */; };
 		D53F59AC2175B8B4005A7F13 /* InformationPersonalPageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D53F59AB2175B8B4005A7F13 /* InformationPersonalPageHeaderView.m */; };
@@ -89,6 +91,9 @@
 		D526B605216AFDC700CB2E6B /* ClassAdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassAdCell.h; sourceTree = "<group>"; };
 		D526B606216AFDC700CB2E6B /* ClassAdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassAdCell.m; sourceTree = "<group>"; };
 		D526B607216AFDC700CB2E6B /* ClassAdCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassAdCell.xib; sourceTree = "<group>"; };
+		D538C6552176BC8400EF47F2 /* IndustryInformationDetailsCell2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndustryInformationDetailsCell2.h; sourceTree = "<group>"; };
+		D538C6562176BC8400EF47F2 /* IndustryInformationDetailsCell2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndustryInformationDetailsCell2.m; sourceTree = "<group>"; };
+		D538C6572176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IndustryInformationDetailsCell2.xib; sourceTree = "<group>"; };
 		D53F59A32175837E005A7F13 /* InformationPersonalPageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationPersonalPageVC.h; sourceTree = "<group>"; };
 		D53F59A42175837E005A7F13 /* InformationPersonalPageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InformationPersonalPageVC.m; sourceTree = "<group>"; };
 		D53F59A721758FA8005A7F13 /* InformationPersonalPageNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InformationPersonalPageNavigationBar.h; sourceTree = "<group>"; };
@@ -340,6 +345,9 @@
 				D53F59B52175D943005A7F13 /* IndustryInformationDetailsCell1.h */,
 				D53F59B62175D943005A7F13 /* IndustryInformationDetailsCell1.m */,
 				D53F59B72175D943005A7F13 /* IndustryInformationDetailsCell1.xib */,
+				D538C6552176BC8400EF47F2 /* IndustryInformationDetailsCell2.h */,
+				D538C6562176BC8400EF47F2 /* IndustryInformationDetailsCell2.m */,
+				D538C6572176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -637,6 +645,7 @@
 				D53F59B42175CCE6005A7F13 /* InformationPersonalPageCell1.xib in Resources */,
 				D551DF15216CA74600F9EAEF /* HistoryRecordReusableView.xib in Resources */,
 				D56A8787216067B400545B6F /* Assets.xcassets in Resources */,
+				D538C6592176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib in Resources */,
 				D56A8785216067AB00545B6F /* Main.storyboard in Resources */,
 				D526B609216AFDC700CB2E6B /* ClassAdCell.xib in Resources */,
 				D551DF06216C783F00F9EAEF /* ClassContentCell2.xib in Resources */,
@@ -670,12 +679,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-考核2/Pods-考核2-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -735,6 +742,7 @@
 				D551DEF4216C4B7900F9EAEF /* CustomChannelVC.m in Sources */,
 				D526B603216AF64E00CB2E6B /* ClassModel.m in Sources */,
 				D551DEFE216C772E00F9EAEF /* HistoryRecordVC.m in Sources */,
+				D538C6582176BC8400EF47F2 /* IndustryInformationDetailsCell2.m in Sources */,
 				D551DF10216C9E9300F9EAEF /* HistoryRecordNavigationBar.m in Sources */,
 				D56A878D216067B400545B6F /* main.m in Sources */,
 				D558F4C1217478EE00EA2C57 /* HistorySearchFlowLayout.m in Sources */,

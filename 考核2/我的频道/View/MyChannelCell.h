@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^DeleteBlock)(void);
 @interface MyChannelCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
-
+@property(nonatomic,copy)DeleteBlock deleteBlock;
 @end

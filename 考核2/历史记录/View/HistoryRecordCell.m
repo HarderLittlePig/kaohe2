@@ -17,7 +17,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+
 //    self.redLine.backgroundColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:0/255.0 alpha:1];
     self.redLine.textColor = [UIColor clearColor];
     
@@ -27,9 +27,8 @@
     self.title.font = kFONT(15);
     self.title.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     self.title.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
+    
     self.title.hidden = YES;
-    
-    
 //    self.redLine.textColor = [UIColor clearColor];
 //    self.redLine.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
 }

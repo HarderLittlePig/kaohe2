@@ -48,7 +48,7 @@
     //添加导航栏
     [self addNavigationBar];
     
-    //添加子控制器
+//    //添加子控制器
     [self addChildVCS];
     
     UIView *titleBGView = [[UIView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, 40)];
@@ -212,11 +212,57 @@
 -(void)jumpChannelAction{
     MyChannelVC *channel = [[MyChannelVC alloc]init];
     NavigationController *nav = [[NavigationController alloc]initWithRootViewController:channel];
+
+    channel.changeChannelBlock = ^(NSInteger index) {
+        
+        //移除所有的子控制器和子视图,重新添加
+        for (UIViewController *vc in self.childViewControllers) {
+            [vc removeFromParentViewController];
+        }
+        
+        for (UIView *v in self.view.subviews) {
+            [v removeFromSuperview];
+        }
+        
+        //重新加载
+        [self viewDidLoad];
+        
+        //滚动到想看的频道
+        if (index != 0) {
+            UIButton *firstButton = self.buttonArray[index];
+            [self tapAction:firstButton];
+        }
+    };
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+//写入文件的路径
+- (NSString *)getFilePath{
+    NSString *filePath  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
+    NSLog(@"%@",filePath);
+    
+    //2、判断文件在该路径下是否存在
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if ([fileManager fileExistsAtPath:filePath]) {
+        //文件存在
+        NSLog(@"数据库文件已经存在了,不需要重新创建了!");
+    }else{
+        //文件不存在
+        NSLog(@"数据库文件不存在，需要我们去创建!");
+        BOOL isCreateSuccess = [fileManager createFileAtPath:filePath contents:nil attributes:nil];
+        if (isCreateSuccess) {
+            NSLog(@"文件创建成功!");
+            
+            [@[@"推荐",@"机械",@"服装",@"电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"] writeToFile:filePath atomically:YES];
+        }
+    }
+    return filePath;
+}
+
+
 -(void)addChildVCS{
-    NSMutableArray *titleArray = @[@"推荐",@"机械",@"服装",@"电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"].mutableCopy;
+    NSMutableArray *titleArray = [NSMutableArray arrayWithContentsOfFile:[self getFilePath]];
     for (NSString *title in titleArray) {
         ClassVC *childvc = [[ClassVC alloc]init];
         childvc.title = title;

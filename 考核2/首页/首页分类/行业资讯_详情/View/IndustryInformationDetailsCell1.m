@@ -30,7 +30,6 @@
     NSAttributedString *string1 = [[NSAttributedString alloc]initWithString:text1 attributes:dict1];
     self.title.attributedText = string1;
     CGFloat height1 = [self.title.text boundingRectWithSize:CGSizeMake(kSCREENWIDTH - 18*2, MAXFLOAT) options:NSStringDrawingUsesFontLeading |NSStringDrawingUsesLineFragmentOrigin attributes:dict1 context:nil].size.height;
-//    NSLog(@"👌%f",height1);
     
     self.userIcon.image = [UIImage imageNamed:@"moment_pic_2"];
     self.userIcon.layer.cornerRadius = 31*0.5;
@@ -59,8 +58,8 @@
     self.dutyEditor.textColor = [UIColor colorWithRed:139/255.0 green:150/255.0 blue:158/255.0 alpha:1];
     
     
-    CGFloat cellHeight = height1 + 31.0 + 29 + 31 + 35 + height2 + 20 + 14 + 25;
-    NSLog(@"👌%f ",cellHeight);
+//    CGFloat cellHeight = height1 + 31.0 + 29.0 + 31.0 + 35.0 + height2 + 20.0 + 14.0 + 25.0;
+//    NSLog(@"👌%f ",cellHeight);
 
 }
 

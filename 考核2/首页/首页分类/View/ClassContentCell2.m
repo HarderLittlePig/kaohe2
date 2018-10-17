@@ -24,17 +24,13 @@
     NSAttributedString *string = [[NSAttributedString alloc]initWithString:model.title attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style}];
     _contentTitle.attributedText = string;
 
-//    _contentTopping.hidden = !model.isTopping;
-//    _contentPopular.hidden =!model.isPopular;
-
-
     [_contentCount setTitle:model.lookCount forState:UIControlStateNormal];
     _contentTime.text = model.publishTime;
 
     
     if (!model.isTopping && !model.isPopular) {
-        _contentPopular.hidden = YES;
         
+        self.contentPopular.hidden = YES;
         [self.contentCount mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.offset(10);
         }];

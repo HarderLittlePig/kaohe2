@@ -18,6 +18,7 @@
 @property(nonatomic,strong)NSMutableArray *titleArray;
 @property(nonatomic,weak)UITableView *leftTable;
 @property(nonatomic,weak)UITableView *rightTable;
+@property(nonatomic,weak)UILabel *noDataLab;
 @end
 //
 @implementation HistoryRecordVC
@@ -46,6 +47,9 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"MyChannelCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:_collectionView];
     [_collectionView registerNib:[UINib nibWithNibName:@"HistoryRecordReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    //无数据的背景
+    [self noDataBackground];
+    
     
     
     UIView *separatorV = [[UIView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT + 189, kSCREENWIDTH, 10)];
@@ -169,10 +173,8 @@
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self.titleArray addObject:cell.textLabel.text];
+        self.noDataLab.hidden = YES;
         [_collectionView reloadData];
-        
-        [self noDataBackground];
-        
     }
 }
 
@@ -252,8 +254,11 @@
 //单个删除
 -(void)deleteItemAction:(UIButton *)sender{
     [self.titleArray removeObjectAtIndex:sender.tag - 1000];
+    
     if (self.titleArray.count == 0) {
-        [self noDataBackground];
+        self.noDataLab.hidden = NO;
+    }else{
+        self.noDataLab.hidden = YES;
     }
     [self.collectionView reloadData];
 }
@@ -265,25 +270,21 @@
     header.frame = CGRectMake(0, 0, kSCREENWIDTH, 60);
     header.deleteBlock = ^{
         [self.titleArray removeAllObjects];
-        //无数据的背景
-        [self noDataBackground];
+        self.noDataLab.hidden = NO;
+        [collectionView reloadData];
     };
     return header;
 }
 
 -(void)noDataBackground{
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(22,141,81.5,13.5);
-    label.text = @"    暂无历史记录";
-    label.font = kFONT(14);
-    label.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    if (self.titleArray.count == 0) {
-        self.collectionView.backgroundView = label;
-        label.hidden = NO;
-    }else{
-        label.hidden = YES;
-    }
-    [self.collectionView reloadData];
+    UILabel *noDataLab = [[UILabel alloc] init];
+    noDataLab.frame = CGRectMake(22,141,81.5,13.5);
+    noDataLab.text = @"    暂无历史记录";
+    noDataLab.font = kFONT(14);
+    noDataLab.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+    noDataLab.hidden = YES;
+    self.collectionView.backgroundView = noDataLab;
+    self.noDataLab = noDataLab;
 }
 
 //头尺寸

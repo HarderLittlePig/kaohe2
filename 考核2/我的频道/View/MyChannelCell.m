@@ -16,6 +16,11 @@
     self.backgroundColor = kWHITECOLOR;
     self.title.font = kFONT(15);
     self.title.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    
+    [self.deleteBtn addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)deleteAction{
+    self.deleteBlock ? self.deleteBlock() : nil;
+}
 @end

@@ -24,7 +24,7 @@
 @property(nonatomic,strong)NSMutableArray *titleArray;
 @property(nonatomic,weak)UITableView *leftTable;
 @property(nonatomic,weak)UITableView *rightTable;
-
+@property(nonatomic,weak)UILabel *noDataLab;
 @end
 
 @implementation CustomChannelVC
@@ -50,11 +50,23 @@
     _collectionView.dataSource = self;
     _collectionView.contentInset = UIEdgeInsetsMake(0, 15, 30, 15);
     _collectionView.backgroundColor = kWHITECOLOR;
-    [_collectionView registerNib:[UINib nibWithNibName:@"MyChannelCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MyChannelCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([MyChannelCell class])];
+    [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([HistoryRecordReusableView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([HistoryRecordReusableView class])];
     [self.view addSubview:_collectionView];
     
     
-    [_collectionView registerNib:[UINib nibWithNibName:@"HistoryRecordReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    
+    
+    //添加无数据提示
+    UILabel *noDataLab = [[UILabel alloc] init];
+    noDataLab.frame = CGRectMake(22,141,81.5,13.5);
+    noDataLab.text = @"    暂无历史记录";
+    noDataLab.font = kFONT(14);
+    noDataLab.hidden = YES;
+    noDataLab.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+    self.collectionView.backgroundView = noDataLab;
+    self.noDataLab = noDataLab;
+    
     
     UIView *separatorV = [[UIView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT + 189, kSCREENWIDTH, 10)];
     separatorV.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
@@ -110,23 +122,6 @@
     
     [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
     [self.rightTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    
-    
-    //默认时索引列文本的颜色
-    leftTable.sectionIndexColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];;
-    //修改索引条字体大小,修改索引条字体大小没有public的api调用修改，遍历子控件找到UITableViewIndex后，需要使用kvc，keypath是font。
-    for (UIView *subView in leftTable.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
-            [subView setValue:[UIFont systemFontOfSize:15.0] forKey:@"font"];
-        }
-    }
-    
-    //    if ([leftTable respondsToSelector:@selector(setSectionIndexColor:)]) {
-    //        //默认时，索引的背景颜色
-    //        leftTable.sectionIndexBackgroundColor = kORANGECOLOR;
-    //        //选中时，索引背景颜色
-//            leftTable.sectionIndexTrackingBackgroundColor = kREDCOLOR;
-    //    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -156,16 +151,16 @@
     
     
     HistoryRecordCell *history = [HistoryRecordCell createCellWithTableView:tableView];
-    history.title.text = [NSString stringWithFormat:@"  这是第%ld组",indexPath.section];
-    UIView *v = [[UIView alloc]initWithFrame:cell.bounds];
-    v.backgroundColor = kWHITECOLOR;
-    history.selectedBackgroundView = v;
+//    history.title.text = [NSString stringWithFormat:@"  这是第%ld组",indexPath.section];
+//    UIView *v = [[UIView alloc]initWithFrame:cell.bounds];
+//    v.backgroundColor = kWHITECOLOR;
+//    history.selectedBackgroundView = v;
     
-//    history.textLabel.text = [NSString stringWithFormat:@"这是第%ld组",indexPath.section];
-//    history.textLabel.font = kFONT(15);
-//    history.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
-//    history.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
-//    history.selectionStyle = UITableViewCellSelectionStyleNone;
+    history.textLabel.text = [NSString stringWithFormat:@"这是第%ld组",indexPath.section];
+    history.textLabel.font = kFONT(15);
+    history.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    history.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
+    history.selectionStyle = UITableViewCellSelectionStyleNone;
     
     history.redLine.hidden = YES;
     if (tableView == self.leftTable) {
@@ -179,30 +174,29 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.leftTable) {
-        NSIndexPath *p = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:p];
-        history.redLine.hidden = NO;
-//        history.selected = YES;
         
-        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
-        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        [self.rightTable selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionTop];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
+        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
     
     }else{
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self.titleArray insertObject:cell.textLabel.text atIndex:0];
+        
+        self.noDataLab.hidden = YES;
         [self.collectionView reloadData];
     }
 }
 
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.leftTable) {
-        NSIndexPath *p = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:p];
-        history.redLine.hidden = YES;
-    }
-}
+//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (tableView == self.leftTable) {
+//        NSIndexPath *p = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
+//        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:p];
+//        history.redLine.hidden = YES;
+//    }
+//}
+
 //方法好像不太对啊
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
@@ -233,36 +227,6 @@
     
 }
 
-//添加索引栏标题数组
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-    if (tableView == self.leftTable) {
-        NSArray *arr = @[@"B",@"C",@"D",@"B",@"C",@"D",@"B",@"C",@"D",@"B"];
-        return arr;
-    }else{
-        return nil;
-    }
-}
-
-// 点击索引栏标题时执行
--(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    if (tableView == self.leftTable) {
-        // 获取所点目录对应的indexPath值
-        NSIndexPath *selectIndexPath = [NSIndexPath indexPathForRow:0 inSection:index];
-        // 让table滚动到对应的indexPath位置
-        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        [tableView selectRowAtIndexPath:selectIndexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-        
-        
-        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:index];
-        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        [self.rightTable selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionTop];
-        return index;
-    }else{
-        return 0;
-    }
-}
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.titleArray.count;
 }
@@ -272,30 +236,29 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    MyChannelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    MyChannelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MyChannelCell class]) forIndexPath:indexPath];
     cell.title.text = self.titleArray[indexPath.item];
-    cell.deleteBtn.hidden = YES;
+    cell.deleteBlock = ^{
+        [self.titleArray removeObjectAtIndex:indexPath.item];
+        self.noDataLab.hidden = self.titleArray.count > 0 ? YES : NO;
+        [collectionView reloadData];
+    };
+    
     return cell;
 }
 
 //返回头尾
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     //重用
-    HistoryRecordReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+    HistoryRecordReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([HistoryRecordReusableView class]) forIndexPath:indexPath];
     header.title.text = @"定制频道";
     header.frame = CGRectMake(0, 0, kSCREENWIDTH, 60);
     header.deleteBlock = ^{
         [self.titleArray removeAllObjects];
         
-//        UILabel *label = [[UILabel alloc] init];
-//        label.frame = CGRectMake(22,141,81.5,13.5);
-//        label.text = @"    暂无历史记录";
-//        label.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:14];
-//        label.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-//        if (self.titleArray.count == 0) {
-//            self.collectionView.backgroundView = label;
-//        }
+        self.noDataLab.hidden = NO;
         [self.collectionView reloadData];
+        
     };
     return header;
 }
@@ -321,15 +284,8 @@
         [self.navigationController popViewControllerAnimated:YES];
     };
     bar.determineBlock = ^{
-        
-        
-//        ClassSearchVC *searc = [[ClassSearchVC alloc]init];
-//        [self.navigationController pushViewController:searc animated:YES];
-        
-        
         CustomChannelAlertView *alert = [[CustomChannelAlertView alloc]initWithFrame:CGRectZero];
         [self.view addSubview:alert];
-        
     };
     
     [self.view addSubview:bar];

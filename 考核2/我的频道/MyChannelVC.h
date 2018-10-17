@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ChangeChannelBlock)(NSInteger index);
 @interface MyChannelVC : UIViewController
-
+@property(nonatomic,copy)ChangeChannelBlock changeChannelBlock;
 @end

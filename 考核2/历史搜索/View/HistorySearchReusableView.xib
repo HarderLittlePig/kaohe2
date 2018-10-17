@@ -33,7 +33,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xva-IB-Vzp">
-                    <rect key="frame" x="391" y="25" width="14" height="14"/>
+                    <rect key="frame" x="381" y="25" width="14" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="14" id="07c-B1-evD"/>
                         <constraint firstAttribute="height" constant="14" id="T8b-nS-rsw"/>
@@ -43,7 +43,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="L7z-46-fhW" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="10" id="f01-6H-7Nt"/>
-                <constraint firstAttribute="trailing" secondItem="Xva-IB-Vzp" secondAttribute="trailing" constant="15" id="jaK-4z-bWt"/>
+                <constraint firstAttribute="trailing" secondItem="Xva-IB-Vzp" secondAttribute="trailing" constant="25" id="jaK-4z-bWt"/>
                 <constraint firstItem="L7z-46-fhW" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="25" id="kCh-6U-g19"/>
                 <constraint firstItem="2Vz-R4-xus" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="25" id="mlY-eY-d4S"/>
                 <constraint firstItem="2Vz-R4-xus" firstAttribute="leading" secondItem="L7z-46-fhW" secondAttribute="trailing" constant="9" id="r3A-1C-de3"/>

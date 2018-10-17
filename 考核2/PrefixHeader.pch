@@ -16,7 +16,7 @@
 #import "UIView+Category.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
-#import <SVProgressHUD.h>
+//#import <SVProgressHUD.h>
 #import "UIView+Toast.h"
 
 

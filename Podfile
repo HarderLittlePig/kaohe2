@@ -7,7 +7,5 @@ pod 'Masonry'
 
 # pod 'SDCycleScrollView'
 
- pod 'SVProgressHUD'
-
  pod 'MJRefresh'
 end

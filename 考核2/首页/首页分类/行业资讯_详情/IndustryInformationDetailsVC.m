@@ -9,7 +9,7 @@
 #import "IndustryInformationDetailsVC.h"
 #import "IndustryInformationDetailsBottomView.h"
 #import "IndustryInformationDetailsCell1.h"
-
+#import "IndustryInformationDetailsCell2.h"
 
 #import "InformationPersonalPageVC.h"
 
@@ -17,6 +17,7 @@
 @property(nonatomic,weak)UIView *line;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,weak)UIButton *userBtn;
+@property(nonatomic,strong)NSMutableArray *array;
 @end
 
 @implementation IndustryInformationDetailsVC
@@ -42,16 +43,24 @@
     [self.navigationController.navigationBar addSubview:line];
     self.line = line;
     
+    self.array = @[@1,@2].mutableCopy;
 }
-
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.array.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     IndustryInformationDetailsCell1 *cell1 = [IndustryInformationDetailsCell1 createCellWithTableView:tableView];
-    
-    return cell1;
+    IndustryInformationDetailsCell2 *cell2 = [IndustryInformationDetailsCell2 createCellWithTableView:tableView];
+    [cell2.deleteBtn addTarget:self action:@selector(deleleRowAction) forControlEvents:UIControlEventTouchUpInside];
+    if (indexPath.row == 0) {
+        return cell1;
+    }else{
+        return cell2;
+    }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -82,10 +91,29 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        return 870;
+    }else{
+        return 294+20;
+    }
+}
+
 -(void)shareAction{
     [self.view makeToast:@"分享" duration:1.0f position:CSToastPositionCenter];
 }
 
+//删除广告
+-(void)deleleRowAction{
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
+    [self.array removeLastObject];
+    [self.table deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.view makeToast:@"删除成功" duration:1 position:CSToastPositionCenter];
+    });
+}
 
 -(void)jumpPersonPageAction{
     InformationPersonalPageVC *personal = [[InformationPersonalPageVC alloc]init];
@@ -120,7 +148,6 @@
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.rowHeight = 800;
     }
     return _table;
 }

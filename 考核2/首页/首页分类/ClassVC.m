@@ -31,7 +31,6 @@
     
     //self.table.refreshControl
     
-    
     [self requestNewData];
     
     [self requestMoreData];

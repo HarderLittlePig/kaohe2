@@ -17,6 +17,7 @@
         UIButton *industryVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         industryVoteBtn.adjustsImageWhenHighlighted = NO;
         [industryVoteBtn setImage:[UIImage imageNamed:@"xwzx_details_hytp"] forState:UIControlStateNormal];
+        [industryVoteBtn addTarget:self action:@selector(industryVoteAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:industryVoteBtn];
         [industryVoteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(9);
@@ -59,7 +60,9 @@
     }
     return self;
 }
-
+-(void)industryVoteAction{
+    [self.superview makeToast:@"行业投票" duration:1 position:CSToastPositionCenter];
+}
 -(void)likeAction:(UIButton *)sender{
     sender.selected = !sender.selected;
 }

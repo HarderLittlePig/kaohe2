@@ -73,7 +73,8 @@
         make.right.offset(-15);
     }];
     
-    self.titleArray = @[@"推荐",@"机械",@"服装",@"电子电子电子电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"].mutableCopy;
+    NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
+    self.titleArray = [NSMutableArray arrayWithContentsOfFile:path];
     _isBack = YES;
     
     /*
@@ -180,9 +181,12 @@
     }
 }
 
+
 - (void)deleteItemAction:(UIButton *)btn {
     [self.titleArray removeObjectAtIndex:btn.tag];
     [self.collectionView reloadData];
+    NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
+    [self.titleArray writeToFile:path atomically:YES];
 }
 
 
@@ -204,19 +208,27 @@
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     [self.titleArray exchangeObjectAtIndex:sourceIndexPath.item withObjectAtIndex:destinationIndexPath.item];
     [self.collectionView reloadData];
+    
+    NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
+    [self.titleArray writeToFile:path atomically:YES];
 }
 
+//选择想看的频道
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (_isBack) {
-        [self dismissAction];
+        self.changeChannelBlock ? self.changeChannelBlock(indexPath.item) : nil;
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
 //重置
 -(void)resetChannelAction{
-    self.titleArray = @[@"推荐",@"机械",@"服装",@"电子电子电子电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"].mutableCopy;
+    self.titleArray = @[@"推荐",@"机械",@"服装",@"电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"].mutableCopy;
     [self.collectionView reloadData];
+    NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
+    [self.titleArray writeToFile:path atomically:YES];
 }
+
 //定制频道
 -(void)jumpToCustomChannelVC{
     CustomChannelVC *custom = [[CustomChannelVC alloc]init];
@@ -247,6 +259,7 @@
 }
 
 -(void)dismissAction{
+    self.changeChannelBlock ? self.changeChannelBlock(0) : nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
