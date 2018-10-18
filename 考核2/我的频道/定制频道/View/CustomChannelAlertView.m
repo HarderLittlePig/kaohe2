@@ -18,6 +18,7 @@
         UIView *bgView = [[UIView alloc]init];
         bgView.backgroundColor = kWHITECOLOR;
         bgView.layer.cornerRadius = 8;
+        bgView.layer.masksToBounds = YES;
         [self addSubview:bgView];
         [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.mas_centerY);
@@ -74,6 +75,8 @@
         [cancelBtn setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1] forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = kFONT(16);
         cancelBtn.layer.borderWidth = 0.5;
+        cancelBtn.layer.borderColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1].CGColor;
+        cancelBtn.layer.masksToBounds = YES;
         [cancelBtn addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:cancelBtn];
         [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,20 +89,13 @@
         [determineBtn setTitleColor:[UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1] forState:UIControlStateNormal];
         determineBtn.titleLabel.font = kFONT(16);
         determineBtn.layer.borderWidth = 0.5;
+        determineBtn.layer.borderColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1].CGColor;
+        determineBtn.layer.masksToBounds = YES;
         [determineBtn addTarget:self action:@selector(determineAction) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:determineBtn];
         [determineBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.offset(0);
             make.size.mas_equalTo(CGSizeMake((kSCREENWIDTH - 30) * 0.5, 45));
-        }];
-        
-        UIView *lineView2 = [[UIView alloc]init];
-        lineView2.backgroundColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1];
-        [bgView addSubview:lineView2];
-        [lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.offset(-45);
-            make.left.right.offset(0);
-            make.height.offset(0.5);
         }];
     }
     return self;
@@ -116,7 +112,8 @@
     }];
 }
 -(void)determineAction{
-    
+    [self cancelAction];
+    [self.superview makeToast:@"确定" duration:1.0 position:CSToastPositionCenter];
 }
 
 -(void)cancelAction{

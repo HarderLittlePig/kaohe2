@@ -8,4 +8,7 @@ pod 'Masonry'
 # pod 'SDCycleScrollView'
 
  pod 'MJRefresh'
+
+pod 'SCIndexView'
+
 end

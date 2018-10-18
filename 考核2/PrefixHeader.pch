@@ -13,10 +13,87 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 
+
+/*
+ Xcode10 适配
+ 
+ 依赖了libstdc++.tbd和libstdc++.6.0.9.tbd，就会报这个error，原因是苹果在XCode10和iOS12中移除了libstdc++这个库，由libc++这个库取而代之，苹果的解释是libstdc++已经标记为废弃有5年了，建议大家使用经过了llvm优化过并且全面支持C++11的libc++库。
+ 
+ 临时的解决方法就是把libstdc++.6.0.9.tbd这个文件导入到Xcode10中，分别放到以下目录 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/   和 /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/  这时编译可以通过。
+ 
+ 但这只是临时的解决方案，如果你自己的业务模块使用了libstdc++，那么就把模块代码重新调整为依赖libc++，然后重新检查是否存在问题，重新编译。如果你引用的第三方厂商提供的sdk中依赖了libstdc++，那么抓紧联系厂商，要求版本升级。
+ 
+ 
+ 获取机型等信息用的是DeviceKit这个第三方库
+ iPhone X、iPhone XS、iPhone XS Max、iPhone XR这些机型的navigationBar高度以及tabBar高度都一致，所以可以用allFaceIDCapableDevices是否包含当前设备，来判断当前设备是否有“齐刘海”。
+ 
+ 
+ 最后别忘了再切两张启动图，因为iPhone XS和尺寸和iPhone X是一样的，所以iPhone XS可以忽略
+ 
+ iPhone XR：828px x 1792px
+ iPhone XS Max: 1242px x 2688px
+ 
+ 刚发布的三款新iPhone包括两款OLED屏幕的iPhone XS和iPhone XS Max，屏幕尺寸分别为5.8英寸（分辨率为1125 x 2436）和6.5英寸（分辨率为1242 x 2688），第三款设备是iPhone XR，配备6.1英寸LCD液晶屏（分辨率为828 x 1792）。三款新iPhone均采用“刘海屏”+Face ID设计，搭载了苹果A12处理器.
+ 
+ iPhoneXS和iPhoneX的相关尺寸相同，所以，iPhone XS和iPhoneX一样,无需做其他适配；
+ iPhoneX、iPhone XS、iPhone XS Max均为3倍屏，但是iPhoneXR为2倍屏
+ 如果你使用的是LaunchImag，就需要提供正确的启动图。需要注意的是XR使用的@2x的图
+ 如果我们只设置iPhone X的启动图，没有设置iPhone XR/iPhone XS Max启动图。iPhone XR/iPhone XS Max会默认使用iPhone X的启动图
+ iPhoneXS Max以及iPhoneXR的逻辑像素是一致的，均为414*896pt，区别在于一个是@3x，一个是@2x
+ 
+ 
+ 重复的info.plist文件
+ 解决方法 : 删除掉多余的info.plist文件,重新编译即可
+ 
+ 
+  需要升级CocoaPods版本>=1.4.0以上
+ 
+ //查看当前系统Cocoapods版本命令：
+ pod --version
+ 
+ //安装更新：
+ pod setup
+ 
+ //当执行完以后再执行:
+ sudo gem install cocoapods
+ */
+
+//#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//#define iPhoneXR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) : NO)
+//#define iPhoneXS_Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) : NO)
+
+/**
+ * 屏幕适配--iPhoneX全系
+ */
+//#define kiPhoneXAll ([UIScreen mainScreen].bounds.size.height == 812 || [UIScreen mainScreen].bounds.size.height == 896)
+
+/**
+ * iPhoneX全系导航栏增加高度 (64->88)
+ */
+//#define kiPhoneX_Top_Height (([UIScreen mainScreen].bounds.size.height == 812 || [UIScreen mainScreen].bounds.size.height == 896)?24:0)
+
+/**
+ * iPhoneX全系TabBar增加高度 (49->83)
+ */
+//#define kiPhoneX_Bottom_Height  (([UIScreen mainScreen].bounds.size.height == 812 || [UIScreen mainScreen].bounds.size.height == 896)?34:0)
+
+
+//第一步：关闭自动调整内边距
+//if (@available(iOS 11.0, *)) {
+//    [UIScrollView appearance].contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//}
+
+//第二步：在使用的地方手动设置内边距
+//self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, kBottomBarHeight, 0);
+//这样设置以后，底下的触摸区域就能正常显示内容了，而且当UIScrollView滑到最底部的时候，不会被遮住。
+
+
+
+
+
 #import "UIView+Category.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
-//#import <SVProgressHUD.h>
 #import "UIView+Toast.h"
 
 

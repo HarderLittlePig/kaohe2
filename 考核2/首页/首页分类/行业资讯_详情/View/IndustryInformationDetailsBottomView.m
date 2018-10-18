@@ -12,7 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.frame = CGRectMake(0, kSCREENHEIGHT - 52, kSCREENWIDTH, 52);
+        self.frame = CGRectMake(0, kSCREENHEIGHT - 52 - HOME_INDICATOR_HEIGHT, kSCREENWIDTH, 52);
         
         UIButton *industryVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         industryVoteBtn.adjustsImageWhenHighlighted = NO;

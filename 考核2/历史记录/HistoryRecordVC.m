@@ -104,23 +104,6 @@
     
     [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
     [self.rightTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    
-    
-    //默认时索引列文本的颜色
-//    leftTable.sectionIndexColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];;
-//    //修改索引条字体大小,修改索引条字体大小没有public的api调用修改，遍历子控件找到UITableViewIndex后，需要使用kvc，keypath是font。
-//    for (UIView *subView in leftTable.subviews) {
-//        if ([subView isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
-//            [subView setValue:[UIFont systemFontOfSize:15.0] forKey:@"font"];
-//        }
-//    }
-
-//    if ([leftTable respondsToSelector:@selector(setSectionIndexColor:)]) {
-//        //默认时，索引的背景颜色
-//        leftTable.sectionIndexBackgroundColor = kORANGECOLOR;
-//        //选中时，索引背景颜色
-//        leftTable.sectionIndexTrackingBackgroundColor = kREDCOLOR;
-//    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -148,12 +131,8 @@
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     
-    
     HistoryRecordCell *history = [HistoryRecordCell createCellWithTableView:tableView];
-    history.textLabel.text = [NSString stringWithFormat:@"第%ld组",indexPath.section];
-    history.textLabel.font = kFONT(15);
-    history.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
-    history.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
+    history.title.text = [NSString stringWithFormat:@"第%ld组",indexPath.section];
     
     if (tableView == self.leftTable) {
         return history;
@@ -168,13 +147,26 @@
     if (tableView == self.leftTable) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
         [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        [self.rightTable selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
+        
+        //
+        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:indexPath];
+        history.title.textColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
+        history.redLine.backgroundColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     }else{
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self.titleArray addObject:cell.textLabel.text];
         self.noDataLab.hidden = YES;
         [_collectionView reloadData];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.leftTable) {
+        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:indexPath];
+        history.title.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        history.redLine.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1];
     }
 }
 
@@ -205,35 +197,6 @@
         }
     }
 }
-
-//添加索引栏标题数组
-//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
-//    if (tableView == self.leftTable) {
-//        //    NSMutableArray *resultArray =[NSMutableArray arrayWithObject:UITableViewIndexSearch];
-//        NSArray *arr = @[@"B",@"C",@"D",@"B",@"C",@"D",@"B",@"C",@"D",@"B"];
-//        return arr;
-//    }
-//    return nil;
-//}
-
-// 点击索引栏标题时执行
-//-(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-//    if (tableView == self.leftTable) {
-//        // 获取所点目录对应的indexPath值
-//        NSIndexPath *selectIndexPath = [NSIndexPath indexPathForRow:0 inSection:index];
-//        // 让table滚动到对应的indexPath位置
-//        [tableView scrollToRowAtIndexPath:selectIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-//        [tableView selectRowAtIndexPath:selectIndexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-//
-//
-//        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:index];
-//        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//        [self.rightTable selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionTop];
-//        return index;
-//    }
-//    return 0;
-//}
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.titleArray.count;

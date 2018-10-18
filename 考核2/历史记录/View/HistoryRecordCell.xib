@@ -19,37 +19,34 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlR-qK-IPa">
-                        <rect key="frame" x="0.0" y="0.0" width="337" height="48.5"/>
+                        <rect key="frame" x="18" y="0.0" width="319" height="48.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="StM-XV-Fhm">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJr-Ox-E6V">
                         <rect key="frame" x="0.0" y="0.0" width="3" height="48.5"/>
                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="3" id="eqY-ec-1aW"/>
+                            <constraint firstAttribute="width" constant="3" id="doR-8Y-lB0"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="WlR-qK-IPa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0PO-ek-7jy"/>
                     <constraint firstAttribute="trailing" secondItem="WlR-qK-IPa" secondAttribute="trailing" id="0tJ-sH-3S4"/>
-                    <constraint firstItem="StM-XV-Fhm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="DoV-mk-jyP"/>
-                    <constraint firstAttribute="bottom" secondItem="StM-XV-Fhm" secondAttribute="bottom" id="dgT-Xy-X6x"/>
-                    <constraint firstItem="StM-XV-Fhm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="lqb-0P-XPb"/>
+                    <constraint firstItem="vJr-Ox-E6V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Qm-UX-9uv"/>
+                    <constraint firstItem="vJr-Ox-E6V" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aWK-E1-EJt"/>
                     <constraint firstAttribute="bottom" secondItem="WlR-qK-IPa" secondAttribute="bottom" id="mN5-Qc-sv0"/>
                     <constraint firstItem="WlR-qK-IPa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rLa-3F-wxK"/>
+                    <constraint firstItem="WlR-qK-IPa" firstAttribute="leading" secondItem="vJr-Ox-E6V" secondAttribute="trailing" constant="15" id="xke-eC-HLU"/>
+                    <constraint firstAttribute="bottom" secondItem="vJr-Ox-E6V" secondAttribute="bottom" id="z8c-Eh-UeH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="redLine" destination="StM-XV-Fhm" id="yn1-1r-lyJ"/>
-                <outlet property="title" destination="WlR-qK-IPa" id="bil-TG-Mpq"/>
+                <outlet property="redLine" destination="vJr-Ox-E6V" id="BC6-rc-kH3"/>
+                <outlet property="title" destination="WlR-qK-IPa" id="4RJ-qk-IpD"/>
             </connections>
-            <point key="canvasLocation" x="-73" y="-34"/>
+            <point key="canvasLocation" x="-73.5" y="-34.5"/>
         </tableViewCell>
     </objects>
 </document>

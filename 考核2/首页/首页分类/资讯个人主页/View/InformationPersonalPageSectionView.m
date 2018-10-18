@@ -25,15 +25,6 @@
             make.centerX.equalTo(self.mas_centerX);
         }];
         
-        UIView *lineV = [[UIView alloc] init];
-        lineV.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
-        [self addSubview:lineV];
-        [lineV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(1, 15));
-            make.centerX.equalTo(self.mas_centerX);
-            make.bottom.offset(-15);
-        }];
-        
         UIView *separatorV = [[UIView alloc] init];
         separatorV.backgroundColor = [UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1];;
         [self addSubview:separatorV];
@@ -41,6 +32,16 @@
             make.left.right.bottom.offset(0);
             make.height.offset(10);
         }];
+        
+        UIView *lineV = [[UIView alloc] init];
+        lineV.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
+        [self addSubview:lineV];
+        [lineV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(1, 15));
+            make.centerX.equalTo(self.mas_centerX);
+            make.bottom.equalTo(separatorV.mas_top).offset(-16);
+        }];
+        
         
         UILabel *totalViews = [[UILabel alloc]init];
         totalViews.text = @"总浏览量：12:23万";

@@ -23,8 +23,15 @@
         iconImage.layer.cornerRadius = 75*0.5;
         iconImage.layer.masksToBounds = YES;
         [self addSubview:iconImage];
+        
+        UITapGestureRecognizer *tapG = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(jumoToMyCollectionAction)];
+        [iconImage addGestureRecognizer:tapG];
     }
     return self;
 }
 
+-(void)jumoToMyCollectionAction{
+    [self.superview makeToast:@"点击了头像" duration:1.0f position:CSToastPositionCenter];
+    
+}
 @end

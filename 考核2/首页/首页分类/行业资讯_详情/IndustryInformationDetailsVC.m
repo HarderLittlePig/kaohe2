@@ -143,7 +143,7 @@
 
 -(UITableView *)table{
     if (!_table) {
-        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 52) style:UITableViewStylePlain];
+        _table = [[UITableView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 52 - HOME_INDICATOR_HEIGHT) style:UITableViewStylePlain];
         _table.tableFooterView = [[UIView alloc]init];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;

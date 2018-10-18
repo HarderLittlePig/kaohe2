@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HistoryRecordCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *redLine;
+@property (weak, nonatomic) IBOutlet UIView *redLine;
 @property (weak, nonatomic) IBOutlet UILabel *title;
 +(instancetype)createCellWithTableView:(UITableView *)tableView;
 @end

@@ -143,6 +143,8 @@
     
     // 如果控制器的view已经被创建过，就直接返回
     if (willShowChildVc.isViewLoaded) return;
+//    if (willShowChildVc.viewIfLoaded) return;
+//    if (willShowChildVc.view.superview) return;
     
     // 添加子控制器的view到scrollView身上
     willShowChildVc.view.frame = scrollView.bounds;
@@ -180,11 +182,13 @@
     [self.titleView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
+
 -(void)textFieldDidBeginEditing:(HomeNavigationBar *)searchBar{
     HistorySearchVC *ccc = [[HistorySearchVC alloc]init];
     [self.navigationController pushViewController:ccc animated:YES];
 }
 
+//频道按钮的点击方法
 -(void)tapAction:(UIButton *)sender{
     self.selectButton.selected = NO;
     sender.selected = YES;
@@ -196,13 +200,10 @@
         self.titleBottomView.centerX = sender.centerX;
     }];
     
-    
     // 让scrollView滚动到对应的位置
     CGPoint offset = self.contentView.contentOffset;
     offset.x = self.view.width * [self.buttonArray indexOfObject:sender];
     [self.contentView setContentOffset:offset animated:YES];
-    
-    
     
     //标题按钮居中
     [self makeTitleButtonCenter:sender];
@@ -253,7 +254,6 @@
         BOOL isCreateSuccess = [fileManager createFileAtPath:filePath contents:nil attributes:nil];
         if (isCreateSuccess) {
             NSLog(@"文件创建成功!");
-            
             [@[@"推荐",@"机械",@"服装",@"电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"] writeToFile:filePath atomically:YES];
         }
     }

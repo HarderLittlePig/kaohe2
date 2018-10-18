@@ -149,20 +149,9 @@
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     
-    
     HistoryRecordCell *history = [HistoryRecordCell createCellWithTableView:tableView];
-//    history.title.text = [NSString stringWithFormat:@"  这是第%ld组",indexPath.section];
-//    UIView *v = [[UIView alloc]initWithFrame:cell.bounds];
-//    v.backgroundColor = kWHITECOLOR;
-//    history.selectedBackgroundView = v;
+    history.title.text = [NSString stringWithFormat:@"第%ld组",indexPath.section];
     
-    history.textLabel.text = [NSString stringWithFormat:@"这是第%ld组",indexPath.section];
-    history.textLabel.font = kFONT(15);
-    history.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
-    history.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
-    history.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    history.redLine.hidden = YES;
     if (tableView == self.leftTable) {
         return history;
     }else{
@@ -176,9 +165,13 @@
     if (tableView == self.leftTable) {
         
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
         [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
     
+        //
+        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:indexPath];
+        history.title.textColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
+        history.redLine.backgroundColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     }else{
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self.titleArray insertObject:cell.textLabel.text atIndex:0];
@@ -188,14 +181,13 @@
     }
 }
 
-
-//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (tableView == self.leftTable) {
-//        NSIndexPath *p = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-//        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:p];
-//        history.redLine.hidden = YES;
-//    }
-//}
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == self.leftTable) {
+        HistoryRecordCell *history = [tableView cellForRowAtIndexPath:indexPath];
+        history.title.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        history.redLine.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1];
+    }
+}
 
 //方法好像不太对啊
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -214,6 +206,7 @@
             NSIndexPath *bottomIndexPath = [[self.rightTable indexPathsForVisibleRows] lastObject];
             NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:bottomIndexPath.section];
             [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+//            [self tableView:self.leftTable didSelectRowAtIndexPath:moveIndexPath];
         } else {
             
             //rightTable 滚动的时候,获取当前页面可见的分区行数
@@ -221,6 +214,7 @@
             NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:topIndexPath.section];
             
             [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+//            [self tableView:self.leftTable didSelectRowAtIndexPath:moveIndexPath];
         }
         
     }
