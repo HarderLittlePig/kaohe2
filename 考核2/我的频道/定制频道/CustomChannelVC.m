@@ -144,13 +144,13 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"这是第%ld组第%ld行",indexPath.section,indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"这是第%ld组第%ld行",(long)indexPath.section,indexPath.row];
     cell.textLabel.font = kFONT(15);
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     
     HistoryRecordCell *history = [HistoryRecordCell createCellWithTableView:tableView];
-    history.title.text = [NSString stringWithFormat:@"第%ld组",indexPath.section];
+    history.title.text = [NSString stringWithFormat:@"第%ld组",(long)indexPath.section];
     
     if (tableView == self.leftTable) {
         return history;

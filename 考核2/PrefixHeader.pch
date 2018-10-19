@@ -15,6 +15,12 @@
 
 
 /*
+ 
+ xcode10 导入头文件闪退解决方案
+ Xcode --> File --> Workspace Settings --> Build System --> Legacy Build System
+ 
+ 
+ 
  Xcode10 适配
  
  依赖了libstdc++.tbd和libstdc++.6.0.9.tbd，就会报这个error，原因是苹果在XCode10和iOS12中移除了libstdc++这个库，由libc++这个库取而代之，苹果的解释是libstdc++已经标记为废弃有5年了，建议大家使用经过了llvm优化过并且全面支持C++11的libc++库。

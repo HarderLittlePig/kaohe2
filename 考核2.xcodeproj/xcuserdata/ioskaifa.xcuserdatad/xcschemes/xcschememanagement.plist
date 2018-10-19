@@ -4,10 +4,33 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>TodayWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>考核2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>D56A8779216067AB00545B6F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D56A8791216067B400545B6F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D56A879C216067B400545B6F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

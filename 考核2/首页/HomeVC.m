@@ -60,12 +60,11 @@
     titleView.bounces = NO;
     titleView.showsVerticalScrollIndicator = NO;
     titleView.showsHorizontalScrollIndicator = NO;
-    //不减58这里是因为大约有一个渐变效果
-    titleView.frame = CGRectMake(0,0,kSCREENWIDTH - 60,40);
+    titleView.frame = CGRectMake(0,0,kSCREENWIDTH - 60,titleBGView.height);
     [titleBGView addSubview:titleView];
     self.titleView = titleView;
     
-    UIButton *channelBtn = [[UIButton alloc]initWithFrame:CGRectMake(kSCREENWIDTH - 60, 0, 60, 40)];
+    UIButton *channelBtn = [[UIButton alloc]initWithFrame:CGRectMake(kSCREENWIDTH - 60, 0, 60, titleBGView.height)];
     [channelBtn setImage:[UIImage imageNamed:@"xwzx_dz"] forState:UIControlStateNormal];
     channelBtn.adjustsImageWhenHighlighted = NO;
     [channelBtn addTarget:self action:@selector(jumpChannelAction) forControlEvents:UIControlEventTouchUpInside];
@@ -74,31 +73,30 @@
     
     NSInteger count = self.childViewControllers.count;
     self.buttonArray = [NSMutableArray array];
-    
+    CGFloat x = 0;//保存前一个button的宽以及前一个button距离屏幕边缘的距离(本质就是下一个按钮的x的值)
+    CGFloat contentSizeW = 0;
     for (int i = 0; i < count; i++) {
-        UIButton *titleButton = [[UIButton alloc]init];
+        UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [titleButton setTitle:self.childViewControllers[i].title forState:UIControlStateNormal];
         [titleButton setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateSelected];
         [titleButton setTitleColor:[UIColor colorWithRed:139/255.0 green:150/255.0 blue:158/255.0 alpha:1] forState:UIControlStateNormal];
         titleButton.titleLabel.font = kFONT(15);
         [titleButton.titleLabel sizeToFit];
-        [titleButton.titleLabel sizeThatFits:CGSizeMake(kSCREENWIDTH, 2)];
+        //算出文字的的宽度 + 按钮中文字本该有的间距
+        CGFloat buttonW = [self.childViewControllers[i].title boundingRectWithSize:CGSizeMake(MAXFLOAT, titleView.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:kFONT(15)} context:nil].size.width + 20;
         
-        //算出文字的的宽度 + 按钮本该有的间距
-        CGFloat buttonW = [self.childViewControllers[i].title boundingRectWithSize:CGSizeMake(MAXFLOAT, titleView.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size.width + 30;
-        
-//        NSLog(@"%f",buttonW);
-        titleButton.frame = CGRectMake(buttonW * i, 0, buttonW, titleView.height);
+        titleButton.frame = CGRectMake(x, 0, buttonW, titleView.height);
         [titleButton addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         [titleView addSubview:titleButton];
         
+        x = titleButton.frame.size.width + titleButton.frame.origin.x;
+        contentSizeW += buttonW;
         //按钮放进数组里
         [self.buttonArray addObject:titleButton];
     }
-    ////////////////
-    titleView.contentSize = CGSizeMake(self.buttonArray.firstObject.width * self.buttonArray.count, 0);
-    
-    
+
+    titleView.contentSize = CGSizeMake(contentSizeW, 0);
+
     
     //添加内容滚动视图
     UIScrollView *contentView = [[UIScrollView alloc] init];
@@ -158,7 +156,7 @@
     //再次手动调用代理方法
     [self scrollViewDidEndScrollingAnimation:scrollView];
 
-    // 判断具体点击的哪个点击按钮
+    // 判断具体点击的哪个按钮
     int index = scrollView.contentOffset.x / scrollView.width;
 
     //调用按钮的点击方法
@@ -183,12 +181,15 @@
 }
 
 
+
 -(void)textFieldDidBeginEditing:(HomeNavigationBar *)searchBar{
     HistorySearchVC *ccc = [[HistorySearchVC alloc]init];
     [self.navigationController pushViewController:ccc animated:YES];
 }
 
 //频道按钮的点击方法
+
+
 -(void)tapAction:(UIButton *)sender{
     self.selectButton.selected = NO;
     sender.selected = YES;
@@ -254,13 +255,16 @@
         BOOL isCreateSuccess = [fileManager createFileAtPath:filePath contents:nil attributes:nil];
         if (isCreateSuccess) {
             NSLog(@"文件创建成功!");
-            [@[@"推荐",@"机械",@"服装",@"电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"] writeToFile:filePath atomically:YES];
+            [@[@"推荐",@"机械",@"服装",@"电子电子",@"石材",@"电磁",@"头条",@"历史",@"军事",@"体育",@"搞逗"] writeToFile:filePath atomically:YES];
         }
     }
     return filePath;
 }
 
 
+/**
+ 添加子控制器
+ */
 -(void)addChildVCS{
     NSMutableArray *titleArray = [NSMutableArray arrayWithContentsOfFile:[self getFilePath]];
     for (NSString *title in titleArray) {
@@ -270,6 +274,9 @@
     }
 }
 
+/**
+ 添加自定义导航栏
+ */
 -(void)addNavigationBar{
     HomeNavigationBar *bar = [[HomeNavigationBar alloc]initWithFrame:CGRectMake(0, 0, kSCREENWIDTH, kNAVIGTAIONBARHEIGHT)];
     bar.delegate = self;
