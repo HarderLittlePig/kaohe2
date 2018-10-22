@@ -91,13 +91,13 @@
     
     if (model.imageArray.count <= 1) {
         if (model.isAd) {
-            return 316;
+            return 306 + 8;
         }
-        return 130;
+        return 112 + 8;
     }else if (model.imageArray.count > 1){
-        return 210;
+        return 196 + 8;
     }else{
-        return 130;
+        return 112 + 8;
     }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

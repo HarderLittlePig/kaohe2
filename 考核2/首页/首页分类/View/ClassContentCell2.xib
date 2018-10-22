@@ -25,28 +25,28 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mZL-bq-q8q">
-                        <rect key="frame" x="10" y="45.5" width="115" height="84"/>
+                        <rect key="frame" x="10" y="45.5" width="115" height="82"/>
                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="84" id="k08-dN-ujB"/>
+                            <constraint firstAttribute="height" constant="82" id="k08-dN-ujB"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j6Q-ZP-IRU">
-                        <rect key="frame" x="135" y="45.5" width="115" height="84"/>
+                        <rect key="frame" x="135" y="45.5" width="115" height="82"/>
                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="84" id="v5Q-Rp-ZHR"/>
+                            <constraint firstAttribute="height" constant="82" id="v5Q-Rp-ZHR"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hfU-Df-V8Q">
-                        <rect key="frame" x="260" y="45.5" width="115" height="84"/>
+                        <rect key="frame" x="260" y="45.5" width="115" height="82"/>
                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="84" id="Chk-G9-yFV"/>
+                            <constraint firstAttribute="height" constant="82" id="Chk-G9-yFV"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfW-oq-Aeg">
-                        <rect key="frame" x="10" y="144.5" width="46" height="15"/>
+                        <rect key="frame" x="10" y="142.5" width="46" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="46" id="PeH-ec-92g"/>
                             <constraint firstAttribute="height" constant="15" id="VMK-3D-N3w"/>
@@ -57,7 +57,7 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一天前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSV-et-jwL">
-                        <rect key="frame" x="126" y="145" width="34" height="15"/>
+                        <rect key="frame" x="126" y="143" width="34" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="CJ0-9x-pqK"/>
                         </constraints>
@@ -66,7 +66,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aT1-ld-xv8">
-                        <rect key="frame" x="66" y="144.5" width="55" height="15"/>
+                        <rect key="frame" x="66" y="142.5" width="55" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="55" id="jj9-WU-bpW"/>
                             <constraint firstAttribute="height" constant="15" id="vzu-Jm-zLS"/>
@@ -109,7 +109,7 @@
                 <outlet property="contentTime" destination="NSV-et-jwL" id="V2f-Uh-Fnx"/>
                 <outlet property="contentTitle" destination="N6R-lG-LTv" id="XsX-pv-Z8c"/>
             </connections>
-            <point key="canvasLocation" x="-54" y="-203"/>
+            <point key="canvasLocation" x="-411" y="-239"/>
         </tableViewCell>
     </objects>
     <resources>

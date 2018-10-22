@@ -161,12 +161,12 @@
 - (void)moveAction:(UILongPressGestureRecognizer *)longGes {
 
     if (longGes.state == UIGestureRecognizerStateBegan) {
-        
+
         NSIndexPath *selectPath = [self.collectionView indexPathForItemAtPoint:[longGes locationInView:longGes.view]];
-        MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:selectPath];
-        cell.deleteBtn.hidden = NO;
-        [cell.deleteBtn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
-        cell.deleteBtn.tag = selectPath.item;
+//        MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:selectPath];
+//        cell.deleteBtn.hidden = NO;
+//        [cell.deleteBtn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
+//        cell.deleteBtn.tag = selectPath.item;
         [self.collectionView beginInteractiveMovementForItemAtIndexPath:selectPath];
 
     }else if (longGes.state == UIGestureRecognizerStateChanged) {
@@ -187,11 +187,23 @@
     [self.collectionView reloadData];
     NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
     [self.titleArray writeToFile:path atomically:YES];
+    
+    
+    //是否可以点击删除
+    for (int i = 0; i < self.titleArray.count; i++) {
+        if (i > 0) {
+            MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+            cell.deleteBtn.hidden = NO;
+        }
+    }
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.titleArray.count;
+}
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -202,10 +214,15 @@
     MyChannelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.title.text = self.titleArray[indexPath.item];
     cell.deleteBtn.hidden = YES;
+    [cell.deleteBtn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
+    cell.deleteBtn.tag = indexPath.item;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+//    if (<#condition#>) {
+//        <#statements#>
+//    }
     [self.titleArray exchangeObjectAtIndex:sourceIndexPath.item withObjectAtIndex:destinationIndexPath.item];
     [self.collectionView reloadData];
     
@@ -255,7 +272,22 @@
         [_collectionView removeGestureRecognizer:longPressGesture];
         _isBack = YES;
     }
-
+    
+    
+    //是否可以点击删除
+    if (sender.selected) {
+        for (int i = 0; i < self.titleArray.count; i++) {
+            if (i > 0) {
+                MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+                cell.deleteBtn.hidden = NO;
+            }
+        }
+    }else{
+        for (int i = 0; i < self.titleArray.count; i++) {
+            MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+            cell.deleteBtn.hidden = YES;
+        }
+    }
 }
 
 -(void)dismissAction{

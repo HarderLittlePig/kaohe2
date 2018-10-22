@@ -78,6 +78,14 @@
     
     _contentTime.font = kFONT(11);
     _contentTime.textColor = [UIColor colorWithRed:157/255.0 green:167/255.0 blue:174/255.0 alpha:1];
+    
+    
+    self.contentImage1.layer.cornerRadius = 4.0f;
+    self.contentImage1.layer.masksToBounds = YES;
+    self.contentImage2.layer.cornerRadius = 4.0f;
+    self.contentImage2.layer.masksToBounds = YES;
+    self.contentImage3.layer.cornerRadius = 4.0f;
+    self.contentImage3.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

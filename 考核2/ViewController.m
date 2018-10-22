@@ -15,8 +15,9 @@
 // U-Share分享面板SDK，未添加分享面板SDK可将此行去掉
 #import <UShareUI/UShareUI.h>
 
-
+#import "CommonConst.h"
 @interface ViewController ()
+@property(nonatomic,copy)NSString *userName;
 @end
 
 @implementation ViewController
@@ -66,7 +67,7 @@
         w = button.frame.size.width + button.frame.origin.x;
         [self.view addSubview:button];
         
-        [button addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [button addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     
@@ -92,8 +93,59 @@
 //    }
     
     
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(50, 50, 100, 40);
+    [btn setTitle:@"三方分享" forState:UIControlStateNormal];
+    [btn setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
     
+    
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn1.frame = CGRectMake(50, 500, 100, 40);
+    [btn1 setTitle:@"三方登录" forState:UIControlStateNormal];
+    [btn1 setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    
+    NSDate *dayTime = [NSDate dateWithTimeIntervalSince1970:60 * 60 * 9];
+    NSDate *noonTime = [NSDate dateWithTimeIntervalSince1970:60 * 60 * 12];
+    NSDate *eveningTime = [NSDate dateWithTimeIntervalSince1970:60 * 60 * 19];
+//    XCTAssertEqual(@"Morning", [testClass getCurrentTimeForDate:dayTime]);
+//    XCTAssertEqual(@"Noon", [testClass getCurrentTimeForDate:noonTime]);
+//    XCTAssertEqual(@"Evening", [testClass getCurrentTimeForDate:eveningTime]);
+    
+}
 
+- (NSString *)getCurrentTimeForDate:(NSDate *)date
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitHour fromDate:date];
+    NSInteger hour = [components hour];
+    
+    if (hour >= 0 && hour < 6) {
+        return @"Night";
+    } else if (hour >= 6 && hour < 12) {
+        return @"Morning";
+    } else if (hour >= 12 && hour < 13) {
+        return @"Noon";
+    } else if (hour >= 13 && hour < 18) {
+        return @"Afternoon";
+    }
+    return @"Evening";
+}
+
+-(void)share{
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        [self shareWebPageToPlatformType:platformType];
+    }];
+}
+
+-(void)login{
+    //微信登录
+    [self getAuthWithUserInfoFromWechat];
 }
 
 -(void)shareAction:(UIButton *)sender{
@@ -148,24 +200,16 @@
         default:
             break;
     }
-    
 }
+
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     HomeVC *h = [[HomeVC alloc]init];
     [self.navigationController pushViewController:h animated:YES];
-    
-    
-    //显示分享面板
-//    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-//
-//        NSLog(@"👌%ld-%@",(long)platformType,userInfo);
-//    }];
-    
 }
 
 #pragma mark - 分享LinkCard(网页链接)
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
-{
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType{
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
@@ -200,8 +244,7 @@
 
 
 #pragma mark - 登录
-- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
-{
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType{
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:nil completion:^(id result, NSError *error) {
         UMSocialUserInfoResponse *resp = result;
         // 第三方登录数据(为空表示平台未提供)
@@ -221,8 +264,7 @@
 }
 
 //新浪微博：   在需要进行获取用户信息的UIViewController中加入如下代码
-- (void)getAuthWithUserInfoFromSina
-{
+- (void)getAuthWithUserInfoFromSina{
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
             
@@ -245,11 +287,12 @@
         }
     }];
 }
+
 //QQ： 授权并获取用户信息(获取uid、access token及用户名等)
-- (void)getAuthWithUserInfoFromQQ
-{
+- (void)getAuthWithUserInfoFromQQ{
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_QQ currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
+            NSLog(@"%@",error);
             
         } else {
             UMSocialUserInfoResponse *resp = result;
@@ -275,11 +318,7 @@
 //微信： 授权并获取用户信息(获取uid、access token及用户名等)
 //注意这里的uid为unionID
 // 在需要进行获取用户信息的UIViewController中加入如下代码
-
-#import <UMShare/UMShare.h>
-
-- (void)getAuthWithUserInfoFromWechat
-{
+- (void)getAuthWithUserInfoFromWechat{
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
         if (error) {
             
@@ -296,11 +335,26 @@
             
             // 用户信息
             NSLog(@"Wechat name: %@", resp.name);
+            self.userName = resp.name;
             NSLog(@"Wechat iconurl: %@", resp.iconurl);
             NSLog(@"Wechat gender: %@", resp.unionGender);
             
             // 第三方平台SDK源数据
             NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
+            
+            
+            [self.view makeToast:[NSString stringWithFormat:@"用户%@,登录成功",self.userName] duration:1.0f position:CSToastPositionCenter];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (self.userName) {
+                    [NSThread sleepForTimeInterval:1.0f];
+                    HomeVC *h = [[HomeVC alloc]init];
+                    [self.navigationController pushViewController:h animated:YES];
+                }else{
+                    [self.view makeToast:@"登录失败" duration:1.0f position:CSToastPositionCenter];
+                }
+            });
+            
         }
     }];
 }

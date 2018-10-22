@@ -32,7 +32,7 @@
         UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)gestureRecognizer;
         CGPoint point = [pan translationInView:self];
         UIGestureRecognizerState state = gestureRecognizer.state;
-        if (UIGestureRecognizerStateBegan == state ||UIGestureRecognizerStatePossible == state) {
+        if (UIGestureRecognizerStateBegan == state || UIGestureRecognizerStatePossible == state) {
             CGPoint location = [gestureRecognizer locationInView:self];
             
             //这是允许每张图片都可实现滑动返回

@@ -38,6 +38,10 @@
     self.layer.cornerRadius = 5.0f;
     self.layer.masksToBounds = YES;
     
+    self.adImage.layer.cornerRadius = 4.0f;
+    self.adImage.layer.masksToBounds = YES;
+    
+    
     _adTitle.font = kFONT(17);
     NSMutableParagraphStyle *style = [NSParagraphStyle defaultParagraphStyle].mutableCopy;
     style.lineSpacing = 4;

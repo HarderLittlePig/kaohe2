@@ -12,7 +12,6 @@
 
 /*
  *应用启动后进行U-Share和第三方平台的初始化工作以下代码将所有平台初始化示例放出，开发者根据平台需要选取相应代码，并替换为所属注册的appKey和appSecret。
- 
  注意并不是所有分享平台都需要配置对应的Appkey，比如WhatsApp、印象笔记平台会直接通过AirDrop方式分享，而短信和邮件会直接调用系统自带的应用进行分享，这两种分享方式均不需要配置对应的三方Appkey
  */
 #import <UMShare/UMShare.h>
@@ -47,6 +46,7 @@
 //    [UMCommonLogManager setUpUMCommonLogManager];
 //    [UMConfigure setLogEnabled:YES];
     
+    //在友盟申请的appkey
     [UMConfigure initWithAppkey:@"5bc980d0f1f556d704000314" channel:@"App Store"];
     
 //    [MobClick setScenarioType:E_UM_GAME|E_UM_DPLUS];
@@ -197,6 +197,7 @@
     [[UMSocialManager defaultManager] setPlaform: UMSocialPlatformType_AlipaySession appKey:@"2015111700822536" appSecret:nil redirectURL:@"http://mobile.umeng.com/social"];
 }
 
+
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -238,7 +239,26 @@
  */
 
 
-
+#pragma mark - 收到推送的回调方法
+/*
+ 静默推送除badge及自定义字段外，不应该包含其他字段（如果要badge，建议通过本地通知实现）。
+ 如果只实现了application:didReceiveRemoteNotification:方法，没有实现application:didReceiveRemoteNotification:fetchCompletionHandler:将无法在后台是收到静默推送。
+ */
+/*
+ *
+ //添加开屏消息
+ +(void)addLaunchMessage;
+ //添加插屏消息
+ +(void)addCardMessageWithLabel:(NSString* __nonnull)label;
+ //添加自定义插屏消息
+ +(void)addCustomCardMessageWithPortraitSize:(CGSize )portraitsize LandscapeSize:(CGSize )landscapesize CloseBtn:(UIButton *_Nullable)button  Label:(NSString *_Nonnull)label umCustomCloseButtonDisplayMode:(BOOL )displaymode;
+ //添加文本插屏消息
+ +(void)addPlainTextCardMessageWithTitleFont:(UIFont *_Nullable)titlefont ContentFont:(UIFont *_Nullable)contentfont buttonFont:(UIFont *_Nullable)buttonfont Label:(NSString*_Nonnull)label;
+ //设置插屏消息的模式
+ +(void)openDebugMode:(BOOL)debugmode;
+ //设置插屏消息点击跳转的url
+ +(void)setWebViewController:(UIViewController *_Nonnull)webViewController;
+ */
 
 //iOS10以下使用这两个方法接收通知
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
@@ -248,13 +268,26 @@
     
     if([[[UIDevice currentDevice] systemVersion]intValue] < 10){
         [UMessage didReceiveRemoteNotification:userInfo];
+        
+        //    self.userInfo = userInfo;
+        //    //定制自定的的弹出框
+        //    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+        //    {
+        //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"标题"
+        //                                                            message:@"Test On ApplicationStateActive"
+        //                                                           delegate:self
+        //                                                  cancelButtonTitle:@"确定"
+        //                                                  otherButtonTitles:nil];
+        //
+        //        [alertView show];
+        //
+        //    }
     }
     completionHandler(UIBackgroundFetchResultNewData);
     
     
     //是否允许SDK自动清空角标
     //[UMessage setBadgeClear:NO];
-    
     
     /** 为某个消息发送点击事件
      */
@@ -277,12 +310,45 @@
             //应用处于前台时的本地推送接受
         }
     } else {
-        // Fallback on earlier versions
+        //iOS 10之前收到通知的处理方式
     }
     
     //当应用处于前台时提示设置，需要哪个可以设置哪一个
     completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
 }
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    //开发环境下：在 didRegisterForRemoteNotificationsWithDeviceToken 中添加如下语句
+    NSLog(@"%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                 stringByReplacingOccurrencesOfString: @" " withString: @""]);
+    //以上方式都可在控制台获取一个长度为64的测试设备的DeviceToken串
+    //生产环境下:用户需要用抓包工具、代理工具等自行获取device_token或者可以查看NSUserDefaults中的kUMessageUserDefaultKeyForParams的值。
+}
+
+
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+//{
+//    //关闭友盟自带的弹出框
+//    [UMessage setAutoAlert:NO];
+//    [UMessage didReceiveRemoteNotification:userInfo];
+//
+//    //    self.userInfo = userInfo;
+//    //    //定制自定的的弹出框
+//    //    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+//    //    {
+//    //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"标题"
+//    //                                                            message:@"Test On ApplicationStateActive"
+//    //                                                           delegate:self
+//    //                                                  cancelButtonTitle:@"确定"
+//    //                                                  otherButtonTitles:nil];
+//    //
+//    //        [alertView show];
+//    //
+//    //    }
+//
+//}
+
 
 //iOS10新增：处理后台点击通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler API_AVAILABLE(ios(10.0)){
@@ -297,6 +363,8 @@
     }
     
 }
+
+
 
 
 

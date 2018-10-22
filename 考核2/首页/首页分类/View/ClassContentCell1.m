@@ -67,11 +67,13 @@
         
         
         UIImageView *contentImage = [[UIImageView alloc] init];
+        contentImage.layer.cornerRadius = 4.0f;
+        contentImage.layer.masksToBounds = YES;
         contentImage.backgroundColor = kORANGECOLOR;
         [self addSubview:contentImage];
         [contentImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.offset(15);
-            make.right.offset(-15);
+            make.right.offset(-10);
             make.bottom.offset(-15);
             make.width.offset(105);
         }];
@@ -98,7 +100,7 @@
         [contentTopping setTitleColor:[UIColor colorWithRed:237/255.0 green:49/255.0 blue:49/255.0 alpha:1] forState:UIControlStateNormal];
         [self.contentView addSubview:contentTopping];
         [contentTopping mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(contentTitle.mas_bottom).offset(25);
+            make.bottom.offset(-16);
             make.left.offset(10);
             make.width.offset(36);
             make.height.offset(15);
@@ -114,7 +116,7 @@
         [contentCount setTitleColor:[UIColor colorWithRed:157/255.0 green:167/255.0 blue:174/255.0 alpha:1] forState:UIControlStateNormal];
         [self.contentView addSubview:contentCount];
         [contentCount mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(contentTitle.mas_bottom).offset(25);
+            make.bottom.offset(-16);
             make.left.equalTo(contentTopping.mas_right).offset(10);
             make.width.offset(46);
             make.height.offset(15);
@@ -127,7 +129,7 @@
         contentTime.textColor = [UIColor colorWithRed:157/255.0 green:167/255.0 blue:174/255.0 alpha:1];
         [self.contentView addSubview:contentTime];
         [contentTime mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(contentTitle.mas_bottom).offset(25);
+            make.bottom.offset(-16);
             make.left.equalTo(contentCount.mas_right).offset(5);
             make.height.offset(15);
         }];
