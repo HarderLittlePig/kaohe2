@@ -49,7 +49,7 @@
         totalViews.textColor = [UIColor colorWithRed:139/255.0 green:150/255.0 blue:158/255.0 alpha:1];
         [self addSubview:totalViews];
         [totalViews mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(lineV.mas_left).offset(-30);
+            make.centerX.equalTo(self.mas_centerX).offset(-kSCREENWIDTH*0.25);
             make.bottom.equalTo(separatorV.mas_top).offset(-16);
         }];
         
@@ -59,7 +59,7 @@
         articles.textColor = [UIColor colorWithRed:139/255.0 green:150/255.0 blue:158/255.0 alpha:1];
         [self addSubview:articles];
         [articles mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(lineV.mas_right).offset(30);
+            make.centerX.offset(kSCREENWIDTH*0.25);
             make.bottom.equalTo(separatorV.mas_top).offset(-16);
         }];
         

@@ -29,6 +29,9 @@
     self.bgView.backgroundColor = kWHITECOLOR;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    self.adImage.layer.cornerRadius = 4;
+    self.adImage.layer.masksToBounds = YES;
+    
     
     self.title.font = kFONT(14);
     self.title.textColor = [UIColor colorWithRed:22/255.0 green:26/255.0 blue:36/255.0 alpha:1];

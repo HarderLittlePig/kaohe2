@@ -1,20 +1,19 @@
 //
-//  InformationPersonalPageCell1.m
+//  InformationPersonalPageCell4.m
 //  考核2
 //
-//  Created by iOS 开发 on 2018/10/16.
+//  Created by iOS 开发 on 2018/10/23.
 //  Copyright © 2018年 iOS 开发. All rights reserved.
 //
 
-#import "InformationPersonalPageCell1.h"
+#import "InformationPersonalPageCell4.h"
 
-@implementation InformationPersonalPageCell1
-
+@implementation InformationPersonalPageCell4
 
 +(instancetype)createCellWithTableView:(UITableView *)tableView{
     
-    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(InformationPersonalPageCell1.class) bundle:nil] forCellReuseIdentifier:NSStringFromClass(InformationPersonalPageCell1.class)];
-    return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(InformationPersonalPageCell1.class)];
+    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(InformationPersonalPageCell4.class) bundle:nil] forCellReuseIdentifier:NSStringFromClass(InformationPersonalPageCell4.class)];
+    return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(InformationPersonalPageCell4.class)];
 }
 
 - (void)awakeFromNib {
@@ -40,15 +39,12 @@
     self.title.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     self.title.numberOfLines = 2;
     
-    
     NSMutableParagraphStyle *style1 = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     style1.lineSpacing = 7;
     NSString *text1 = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
     NSDictionary *dict1 = @{NSFontAttributeName:kFONT(17), NSParagraphStyleAttributeName:style1};
     NSAttributedString *string1 = [[NSAttributedString alloc]initWithString:text1 attributes:dict1];
     self.title.attributedText = string1;
-    
-    
     
     self.contentImg.layer.cornerRadius = 4.0f;
     self.contentImg.layer.masksToBounds = YES;

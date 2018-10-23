@@ -109,7 +109,7 @@
                 <outlet property="contentTime" destination="NSV-et-jwL" id="V2f-Uh-Fnx"/>
                 <outlet property="contentTitle" destination="N6R-lG-LTv" id="XsX-pv-Z8c"/>
             </connections>
-            <point key="canvasLocation" x="-411" y="-239"/>
+            <point key="canvasLocation" x="39" y="-236"/>
         </tableViewCell>
     </objects>
     <resources>

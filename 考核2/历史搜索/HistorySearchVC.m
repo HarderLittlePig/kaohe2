@@ -141,7 +141,7 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    HistorySearchCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    HistorySearchCell *cell = (HistorySearchCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     //数组不包含,写入
     if (![self.historyArray containsObject:cell.title.text]) {

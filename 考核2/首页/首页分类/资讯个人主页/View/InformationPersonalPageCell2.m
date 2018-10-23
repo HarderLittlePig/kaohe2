@@ -1,20 +1,19 @@
 //
-//  InformationPersonalPageCell1.m
+//  InformationPersonalPageCell2.m
 //  考核2
 //
-//  Created by iOS 开发 on 2018/10/16.
+//  Created by iOS 开发 on 2018/10/23.
 //  Copyright © 2018年 iOS 开发. All rights reserved.
 //
 
-#import "InformationPersonalPageCell1.h"
+#import "InformationPersonalPageCell2.h"
 
-@implementation InformationPersonalPageCell1
-
+@implementation InformationPersonalPageCell2
 
 +(instancetype)createCellWithTableView:(UITableView *)tableView{
     
-    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(InformationPersonalPageCell1.class) bundle:nil] forCellReuseIdentifier:NSStringFromClass(InformationPersonalPageCell1.class)];
-    return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(InformationPersonalPageCell1.class)];
+    [tableView registerNib:[UINib nibWithNibName:NSStringFromClass(InformationPersonalPageCell2.class) bundle:nil] forCellReuseIdentifier:NSStringFromClass(InformationPersonalPageCell2.class)];
+    return [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(InformationPersonalPageCell2.class)];
 }
 
 - (void)awakeFromNib {
@@ -40,7 +39,6 @@
     self.title.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     self.title.numberOfLines = 2;
     
-    
     NSMutableParagraphStyle *style1 = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     style1.lineSpacing = 7;
     NSString *text1 = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
@@ -48,10 +46,12 @@
     NSAttributedString *string1 = [[NSAttributedString alloc]initWithString:text1 attributes:dict1];
     self.title.attributedText = string1;
     
-    
-    
-    self.contentImg.layer.cornerRadius = 4.0f;
-    self.contentImg.layer.masksToBounds = YES;
+    self.contentImg1.layer.cornerRadius = 4.0f;
+    self.contentImg1.layer.masksToBounds = YES;
+    self.contentImg2.layer.cornerRadius = 4.0f;
+    self.contentImg2.layer.masksToBounds = YES;
+    self.contentImg3.layer.cornerRadius = 4.0f;
+    self.contentImg3.layer.masksToBounds = YES;
     
     [self.lookCount setTitleColor:[UIColor colorWithRed:157/255.0 green:167/255.0 blue:174/255.0 alpha:1] forState:UIControlStateNormal];
     self.lookCount.titleLabel.font = kFONT(11);

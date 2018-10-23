@@ -9,10 +9,12 @@
 #import "ClassVC.h"
 #import "ClassContentCell1.h"
 #import "ClassContentCell2.h"
+#import "ClassContentCell3.h"
 #import "ClassAdCell.h"
 #import "ClassModel.h"
 
 #import "IndustryInformationDetailsVC.h"
+#import "InformationDetailsVC.h"
 
 @interface ClassVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
@@ -46,6 +48,10 @@
             model.imageArray = @[@1,@2,@3];
         }else{
             model.imageArray = @[@1];
+        }
+        
+        if (i == 6) {
+            model.imageArray = @[];
         }
         
         if (i == 0) {
@@ -88,14 +94,16 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     ClassModel *model = self.dataArray[indexPath.row];
-    
-    if (model.imageArray.count <= 1) {
+    if (model.imageArray.count == 0) {
+        return 102 + 8;
+    }
+    if (model.imageArray.count == 1) {
         if (model.isAd) {
             return 306 + 8;
         }
         return 112 + 8;
     }else if (model.imageArray.count > 1){
-        return 196 + 8;
+        return 195 + 8;
     }else{
         return 112 + 8;
     }
@@ -113,14 +121,19 @@
     
     ClassContentCell1 *contentcell1 = [ClassContentCell1 createCellWithTableView:tableView];
     ClassContentCell2 *contentcell2 = [ClassContentCell2 createCellWithTableView:tableView];
-    
+    ClassContentCell3 *contentcell3 = [ClassContentCell3 createCellWithTableView:tableView];
     
     ClassModel *model = self.dataArray[indexPath.row];
     contentcell1.model = model;
     contentcell2.model = model;
+    contentcell3.model = model;
     adcell.model = model;
     
-    if (model.imageArray.count <= 1) {
+    if (model.imageArray.count == 0) {
+        return contentcell3;
+    }
+    
+    if (model.imageArray.count == 1) {
         
         if (model.isAd) {
             return adcell;
@@ -135,12 +148,17 @@
         return contentcell1;
     }
     
-//    cell.backgroundColor = [UIColor colorWithRed:(arc4random() % 256)/255.0 green:(arc4random() % 256)/255.0 blue:(arc4random() % 256)/255.0 alpha:1];
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    IndustryInformationDetailsVC *detail = [[IndustryInformationDetailsVC alloc]init];
-    [self.navigationController pushViewController:detail animated:YES];
+    if (indexPath.row % 2 == 0) {
+        IndustryInformationDetailsVC *detail = [[IndustryInformationDetailsVC alloc]init];
+        [self.navigationController pushViewController:detail animated:YES];
+    }else{
+        InformationDetailsVC *detail = [[InformationDetailsVC alloc]init];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 -(UITableView *)table{

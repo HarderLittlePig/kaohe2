@@ -126,7 +126,7 @@
     CustomChannelNavigationBar *bar = [[CustomChannelNavigationBar alloc]initWithFrame:CGRectMake(0, 0, kSCREENWIDTH, kNAVIGTAIONBARHEIGHT)];
     bar.delegate = self;
     [bar.determineButton setTitle:@"搜索" forState:UIControlStateNormal];
-    [bar.inputField becomeFirstResponder];
+//    [bar.inputField becomeFirstResponder];
     bar.inputField.text = self.searchBarContent;
     [bar.determineButton setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateNormal];
     bar.backBlock = ^{

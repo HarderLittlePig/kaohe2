@@ -193,16 +193,14 @@
 -(void)tapAction:(UIButton *)sender{
     self.selectButton.selected = NO;
     sender.selected = YES;
-    self.selectButton = sender;
     
     sender.titleLabel.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:15];
-//    self.selectButton.titleLabel.font = [UIFont fontWithName:@"HiraginoSansGB-W3" size:15];
+    self.selectButton.titleLabel.font = kFONT(15);
     
-//    if (@available(iOS 8.2, *)) {
-//        sender.titleLabel.font = [UIFont systemFontOfSize:15 weight:30];
-//    } else {
-//
-//    }
+    self.selectButton = sender;
+    
+    
+    
     
     // 底部控件的位置和尺寸
     [UIView animateWithDuration:0.25 animations:^{

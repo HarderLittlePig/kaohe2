@@ -44,15 +44,34 @@
                             <constraint firstAttribute="width" constant="110" id="KfQ-Qi-cDB"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojr-ZP-3IS">
-                        <rect key="frame" x="52" y="36" width="213" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojr-ZP-3IS">
+                        <rect key="frame" x="52" y="36" width="213" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRr-0v-c97">
+                        <rect key="frame" x="52" y="100.5" width="40" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="11" id="Spz-2H-HE5"/>
+                            <constraint firstAttribute="width" constant="40" id="xXm-Om-4ay"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <state key="normal" title=" 126" image="xwzx_yd">
+                            <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1小时前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7i-rY-qUf">
+                        <rect key="frame" x="107" y="97.5" width="39" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="k7i-rY-qUf" firstAttribute="leading" secondItem="kRr-0v-c97" secondAttribute="trailing" constant="15" id="8Ai-9S-DP3"/>
                     <constraint firstItem="EKT-7e-He0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="B3h-PI-Opj"/>
+                    <constraint firstAttribute="bottom" secondItem="kRr-0v-c97" secondAttribute="bottom" constant="24" id="CZx-2q-tIT"/>
                     <constraint firstItem="Ojr-ZP-3IS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="36" id="DhE-CM-UcE"/>
                     <constraint firstItem="5WZ-Pj-mKL" firstAttribute="leading" secondItem="Ojr-ZP-3IS" secondAttribute="trailing" constant="11" id="FDf-ue-wkC"/>
                     <constraint firstAttribute="trailing" secondItem="QFJ-C2-EGp" secondAttribute="trailing" constant="15" id="JxF-vt-5hE"/>
@@ -62,6 +81,8 @@
                     <constraint firstItem="QFJ-C2-EGp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="VZU-L9-EiZ"/>
                     <constraint firstItem="5WZ-Pj-mKL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="36" id="Yc5-rF-fZo"/>
                     <constraint firstItem="xbp-gl-asb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="aRc-Xs-2hy"/>
+                    <constraint firstAttribute="bottom" secondItem="k7i-rY-qUf" secondAttribute="bottom" constant="24" id="fpP-sT-41L"/>
+                    <constraint firstItem="kRr-0v-c97" firstAttribute="leading" secondItem="EKT-7e-He0" secondAttribute="trailing" constant="31" id="gqZ-3c-RS0"/>
                     <constraint firstItem="QFJ-C2-EGp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="l2c-ht-obU"/>
                     <constraint firstAttribute="bottom" secondItem="EKT-7e-He0" secondAttribute="bottom" id="n7t-DL-dsv"/>
                     <constraint firstAttribute="trailing" secondItem="5WZ-Pj-mKL" secondAttribute="trailing" constant="30" id="v4S-O4-bnu"/>
@@ -71,6 +92,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bgView" destination="QFJ-C2-EGp" id="nh0-d8-q6v"/>
+                <outlet property="contentImg" destination="5WZ-Pj-mKL" id="LSB-6o-2mu"/>
+                <outlet property="lookCount" destination="kRr-0v-c97" id="cKG-F5-bp8"/>
+                <outlet property="publishTime" destination="k7i-rY-qUf" id="z5X-b5-2gJ"/>
                 <outlet property="timeLine" destination="EKT-7e-He0" id="7vM-M0-cSn"/>
                 <outlet property="timeLineBall" destination="xbp-gl-asb" id="hE0-T4-h1C"/>
                 <outlet property="title" destination="Ojr-ZP-3IS" id="EzG-xf-iya"/>
@@ -80,5 +104,6 @@
     </objects>
     <resources>
         <image name="xwzx_grzy_bg" width="65" height="50"/>
+        <image name="xwzx_yd" width="15" height="10"/>
     </resources>
 </document>

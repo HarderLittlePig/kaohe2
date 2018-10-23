@@ -12,6 +12,9 @@
 #import "InformationPersonalPageSectionView.h"
 
 #import "InformationPersonalPageCell1.h"
+#import "InformationPersonalPageCell2.h"
+#import "InformationPersonalPageCell3.h"
+#import "InformationPersonalPageCell4.h"
 
 @interface InformationPersonalPageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *table;
@@ -47,14 +50,61 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 4;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            return 112 + 30;
+            break;
+        case 1:
+            return 181+30;
+            break;
+        case 2:
+            return 102+30;
+            break;
+        case 3:
+            return 284+30;
+            break;
+            
+        default:
+            break;
+    }
+    return 100;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     InformationPersonalPageCell1 *cell1 = [InformationPersonalPageCell1 createCellWithTableView:tableView];
-    cell1.title.text = @"洗衣机";
-    return cell1;
+    InformationPersonalPageCell2 *cell2 = [InformationPersonalPageCell2 createCellWithTableView:tableView];
+    InformationPersonalPageCell3 *cell3 = [InformationPersonalPageCell3 createCellWithTableView:tableView];
+    InformationPersonalPageCell4 *cell4 = [InformationPersonalPageCell4 createCellWithTableView:tableView];
+    
+    
+    cell1.title.text = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
+    cell2.title.text = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
+    cell3.title.text = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
+    cell4.title.text = @"杨贵妃没有死？去了日本还有后代！日本女星拿出家谱证明！";
+    
+    switch (indexPath.row) {
+        case 0:
+            return cell1;
+            break;
+        case 1:
+            return cell2;
+            break;
+        case 2:
+            return cell3;
+            break;
+        case 3:
+            return cell4;
+            break;
+            
+        default:
+            break;
+    }
+    return nil;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -83,7 +133,6 @@
         _table.tableFooterView = [[UIView alloc]init];
         _table.delegate = self;
         _table.dataSource = self;
-        _table.rowHeight = 120;
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _table;

@@ -1,33 +1,36 @@
 //
-//  IndustryInformationDetailsVC.m
+//  InformationDetailsVC.m
 //  考核2
 //
-//  Created by iOS 开发 on 2018/10/16.
+//  Created by iOS 开发 on 2018/10/23.
 //  Copyright © 2018年 iOS 开发. All rights reserved.
 //
 
-#import "IndustryInformationDetailsVC.h"
+#import "InformationDetailsVC.h"
 #import "IndustryInformationDetailsBottomView.h"
-#import "IndustryInformationDetailsCell1.h"
-#import "IndustryInformationDetailsCell2.h"
-
-#import "IndustryInformationDetailsModel.h"
-
+#import "InformationDetailsSectionHeader.h"
+#import "InformationDetailsSectionFooter.h"
+#import "InformationDetailsCell1.h"
+#import "InformationDetailsCell2.h"
+#import "InformationDetailsCell3.h"
+#import "InformationDetailsCell4.h"
+#import "ClassModel.h"
 
 #import "InformationPersonalPageVC.h"
 
+#import <WebKit/WebKit.h>
 
 // U-Share分享面板SDK，未添加分享面板SDK可将此行去掉
 #import <UShareUI/UShareUI.h>
-
-@interface IndustryInformationDetailsVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface InformationDetailsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,weak)UIView *line;
 @property(nonatomic,strong)UITableView *table;
 @property(nonatomic,weak)UIButton *userBtn;
 @property(nonatomic,strong)NSMutableArray *array;
+@property(nonatomic,strong)WKWebView *webView;
 @end
 
-@implementation IndustryInformationDetailsVC
+@implementation InformationDetailsVC
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -43,6 +46,13 @@
     
     [self settingNacigationBar];
     
+    self.webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 52 - HOME_INDICATOR_HEIGHT)];
+    self.webView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.jianshu.com/u/738706c0a028"]];
+    [self.webView loadRequest:request];
+//    [self.view addSubview:self.webView];
+    
+    self.table.tableHeaderView = self.webView;
     [self.view addSubview:self.table];
     
     UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT - kSTATUSBARHEIGH -1, kSCREENWIDTH, 1)];
@@ -50,53 +60,51 @@
     [self.navigationController.navigationBar addSubview:line];
     self.line = line;
     
-    IndustryInformationDetailsModel *model = [[IndustryInformationDetailsModel alloc]init];
     
-    self.array = @[model,@2].mutableCopy;
+//    IndustryInformationDetailsModel *model = [[IndustryInformationDetailsModel alloc]init];
+//    self.array = @[model,@2].mutableCopy;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.array.count;
+//    return self.array.count;
+    return 4;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    IndustryInformationDetailsCell1 *cell1 = [IndustryInformationDetailsCell1 createCellWithTableView:tableView];
-    IndustryInformationDetailsCell2 *cell2 = [IndustryInformationDetailsCell2 createCellWithTableView:tableView];
-    cell1.jumpBlock = ^{
-        [self jumpPersonPageAction];
-    };
+    InformationDetailsCell1 *cell1 = [InformationDetailsCell1 createCellWithTableView:tableView];
+    InformationDetailsCell2 *cell2 = [InformationDetailsCell2 createCellWithTableView:tableView];
+    InformationDetailsCell3 *cell3 = [InformationDetailsCell3 createCellWithTableView:tableView];
+    InformationDetailsCell4 *cell4 = [InformationDetailsCell4 createCellWithTableView:tableView];
     
-    [cell2.deleteBtn addTarget:self action:@selector(deleleRowAction) forControlEvents:UIControlEventTouchUpInside];
     if (indexPath.row == 0) {
-        cell1.model = self.array[0];
         return cell1;
-    }else{
+    }else if (indexPath.row == 1) {
         return cell2;
+    }else if (indexPath.row == 2) {
+        return cell3;
+    }else {
+        return cell4;
     }
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 1) {
-        UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kSCREENWIDTH, 65 *Iphone6ScaleHeight)];
-        v.backgroundColor = kORANGECOLOR;
-        return v;
-    }
-    return nil;
+    InformationDetailsSectionHeader *header = [[InformationDetailsSectionHeader alloc]initWithFrame:CGRectZero];
+    return header;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 1) {
-        return 65 *Iphone6ScaleHeight;
-    }
-    return 0;
+    return 55 *Iphone6ScaleHeight;
 }
-
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return nil;
+    InformationDetailsSectionFooter *footer = [[InformationDetailsSectionFooter alloc]initWithFrame:CGRectZero];
+    footer.lookMoreBtn = ^{
+        [self.view makeToast:@"加载更多" duration:1.0f position:CSToastPositionCenter];
+    };
+    return footer;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
+    return 57 *Iphone6ScaleHeight;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -106,11 +114,11 @@
             //
             UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backAction)];
             //
-//            UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 23, 23)];
-//            iconImage.userInteractionEnabled = YES;
-//            iconImage.image = [[UIImage imageNamed:@"moment_pic_2"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
-//            iconImage.layer.cornerRadius = 23*0.5;
-//            iconImage.layer.masksToBounds = YES;
+            //            UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 23, 23)];
+            //            iconImage.userInteractionEnabled = YES;
+            //            iconImage.image = [[UIImage imageNamed:@"moment_pic_2"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
+            //            iconImage.layer.cornerRadius = 23*0.5;
+            //            iconImage.layer.masksToBounds = YES;
             
             
             UIButton *userBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -120,7 +128,7 @@
             [userBtn setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateNormal];
             [userBtn addTarget:self action:@selector(jumpPersonPageAction) forControlEvents:UIControlEventTouchUpInside];
             self.userBtn = userBtn;
-//            UIBarButtonItem *userItem1 = [[UIBarButtonItem alloc]initWithCustomView:iconImage];
+            //            UIBarButtonItem *userItem1 = [[UIBarButtonItem alloc]initWithCustomView:iconImage];
             UIBarButtonItem *userItem2 = [[UIBarButtonItem alloc]initWithCustomView:userBtn];
             //userItem1
             self.navigationItem.leftBarButtonItems = @[backItem,userItem2];
@@ -137,10 +145,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        IndustryInformationDetailsModel *model = self.array[0];
-        return model.cellHeight;
-    }else{
-        return 294+20;
+        return 123;
+    }else if (indexPath.row == 1) {
+        return 205;
+    }else if (indexPath.row == 2) {
+        return 325;
+    }else {
+        return 113;
     }
 }
 
@@ -184,18 +195,6 @@
     }];
 }
 
-//删除广告
--(void)deleleRowAction{
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:1 inSection:0];
-    [self.array removeLastObject];
-    [self.table deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.view makeToast:@"删除成功" duration:1 position:CSToastPositionCenter];
-    });
-}
-
 -(void)jumpPersonPageAction{
     InformationPersonalPageVC *personal = [[InformationPersonalPageVC alloc]init];
     [self.navigationController pushViewController:personal animated:YES];
@@ -226,10 +225,10 @@
     if (!_table) {
         _table = [[UITableView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 52 - HOME_INDICATOR_HEIGHT) style:UITableViewStyleGrouped];
         _table.tableFooterView = [[UIView alloc]init];
-        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         _table.delegate = self;
         _table.dataSource = self;
-        _table.contentInset = UIEdgeInsetsMake(-40, 0, 0, 0);
+//        _table.contentInset = UIEdgeInsetsMake(-40, 0, 0, 0);
     }
     return _table;
 }

@@ -102,6 +102,9 @@
 #import <Masonry.h>
 #import "UIView+Toast.h"
 
+#import "SCIndexView.h"
+#import "UITableView+SCIndexView.h"
+
 
 //颜色
 #define kREDCOLOR [UIColor redColor]
