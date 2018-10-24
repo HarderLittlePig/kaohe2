@@ -17,6 +17,8 @@
 #import "HistoryRecordReusableView.h"
 #import "HistoryRecordCell.h"
 
+#import "IndexTableView.h"
+
 #import "ClassSearchVC.h"
 
 @interface CustomChannelVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
@@ -122,6 +124,10 @@
     
     [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
     [self.rightTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+
+    
+    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH-15, kSCREENHEIGHT-listHeight, 15, listHeight) style:UITableViewStylePlain];
+    [self.view addSubview:indexT];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

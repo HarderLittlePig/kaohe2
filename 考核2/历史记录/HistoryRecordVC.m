@@ -13,12 +13,16 @@
 #import "HistoryRecordCell.h"
 #import "ClassSearchVC.h"
 
+
+#import "IndexTableView.h"
 @interface HistoryRecordVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,HistoryRecordNavigationBarDelegate>
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *titleArray;
 @property(nonatomic,weak)UITableView *leftTable;
 @property(nonatomic,weak)UITableView *rightTable;
 @property(nonatomic,weak)UILabel *noDataLab;
+
+@property(nonatomic,strong)NSIndexPath *selectIndexPath;
 @end
 //
 @implementation HistoryRecordVC
@@ -102,8 +106,14 @@
     [listView addSubview:rightTable];
     self.rightTable = rightTable;
     
+    
     [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self tableView:self.leftTable didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.rightTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+    
+    
+    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH-15, kSCREENHEIGHT-listHeight, 15, listHeight) style:UITableViewStylePlain];
+    [self.view addSubview:indexT];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -142,7 +152,6 @@
 }
 
 #pragma mark - Delegate
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.leftTable) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
@@ -156,7 +165,9 @@
     }else{
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [self.titleArray addObject:cell.textLabel.text];
+        if (![self.titleArray containsObject:cell.textLabel.text]) {
+            [self.titleArray addObject:cell.textLabel.text];
+        }
         self.noDataLab.hidden = YES;
         [_collectionView reloadData];
     }
@@ -170,33 +181,30 @@
     }
 }
 
-//方法好像不太对啊
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (scrollView == self.rightTable) {
-        //取出当前显示的最顶部的cell的indexpath
-        //当前tableview页面可见的分区属性 indexPathsForVisibleRows
-        // 取出显示在 视图 且最靠上 的 cell 的 indexPath
-        // 判断tableView是否滑动到最底部
-        CGFloat height = scrollView.frame.size.height;
-        CGFloat contentOffsetY = scrollView.contentOffset.y;
-        CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
-        
-        if (bottomOffset <= height) {
-            //
-            NSIndexPath *bottomIndexPath = [[self.rightTable indexPathsForVisibleRows] lastObject];
-            NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:bottomIndexPath.section];
-            [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
-        } else {
-            
-            //rightTable 滚动的时候,获取当前页面可见的分区行数
-            NSIndexPath *topIndexPath = [[self.rightTable indexPathsForVisibleRows]firstObject];
-            NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:topIndexPath.section];
-            
-            [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
-        }
-    }
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//
+//    if (scrollView == self.rightTable) {
+//        //取出当前显示的最顶部的cell的indexpath
+//        //当前tableview页面可见的分区属性 indexPathsForVisibleRows
+//        // 取出显示在 视图 且最靠上 的 cell 的 indexPath
+//        // 判断tableView是否滑动到最底部
+//        CGFloat height = scrollView.frame.size.height;
+//        CGFloat contentOffsetY = scrollView.contentOffset.y;
+//        CGFloat bottomOffset = scrollView.contentSize.height - contentOffsetY;
+//
+//        if (bottomOffset <= height) {
+//            //
+//            NSIndexPath *bottomIndexPath = [[self.rightTable indexPathsForVisibleRows] lastObject];
+//            NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:bottomIndexPath.section];
+//            [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+//        } else {
+//            //rightTable 滚动的时候,获取当前页面可见的分区行数
+//            NSIndexPath *topIndexPath = [[self.rightTable indexPathsForVisibleRows] firstObject];
+//            NSIndexPath *moveIndexPath = [NSIndexPath indexPathForRow:0 inSection:topIndexPath.section];
+//            [self.leftTable selectRowAtIndexPath:moveIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+//        }
+//    }
+//}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.titleArray.count;
@@ -256,7 +264,7 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    MyChannelCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    MyChannelCell *cell = (MyChannelCell *)[collectionView cellForItemAtIndexPath:indexPath];
     ClassSearchVC *searc = [[ClassSearchVC alloc]init];
     searc.searchBarContent = cell.title.text;
     [self.navigationController pushViewController:searc animated:YES];

@@ -70,6 +70,9 @@
 		D56A87C121607C5900545B6F /* UIView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C021607C5900545B6F /* UIView+Category.m */; };
 		D56A87C521609F9F00545B6F /* MyChannelVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C421609F9F00545B6F /* MyChannelVC.m */; };
 		D56A87C82160A07900545B6F /* ClassVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A87C72160A07900545B6F /* ClassVC.m */; };
+		D56CDF6D218046E50021F215 /* IndexTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D56CDF6C218046E50021F215 /* IndexTableView.m */; };
+		D56CDF7121804AA10021F215 /* IndexTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D56CDF6F21804AA10021F215 /* IndexTableViewCell.m */; };
+		D56CDF7221804AA10021F215 /* IndexTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D56CDF7021804AA10021F215 /* IndexTableViewCell.xib */; };
 		D578CD262170828E00327FCD /* HistorySearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D578CD242170828E00327FCD /* HistorySearchCell.m */; };
 		D578CD272170828E00327FCD /* HistorySearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D578CD252170828E00327FCD /* HistorySearchCell.xib */; };
 		D578CD2B2170839300327FCD /* HistorySearchReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D578CD292170839300327FCD /* HistorySearchReusableView.m */; };
@@ -255,6 +258,11 @@
 		D56A87C421609F9F00545B6F /* MyChannelVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyChannelVC.m; sourceTree = "<group>"; };
 		D56A87C62160A07900545B6F /* ClassVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClassVC.h; sourceTree = "<group>"; };
 		D56A87C72160A07900545B6F /* ClassVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClassVC.m; sourceTree = "<group>"; };
+		D56CDF6B218046E50021F215 /* IndexTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexTableView.h; sourceTree = "<group>"; };
+		D56CDF6C218046E50021F215 /* IndexTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexTableView.m; sourceTree = "<group>"; };
+		D56CDF6E21804AA10021F215 /* IndexTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexTableViewCell.h; sourceTree = "<group>"; };
+		D56CDF6F21804AA10021F215 /* IndexTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndexTableViewCell.m; sourceTree = "<group>"; };
+		D56CDF7021804AA10021F215 /* IndexTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IndexTableViewCell.xib; sourceTree = "<group>"; };
 		D578CD232170828E00327FCD /* HistorySearchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchCell.h; sourceTree = "<group>"; };
 		D578CD242170828E00327FCD /* HistorySearchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchCell.m; sourceTree = "<group>"; };
 		D578CD252170828E00327FCD /* HistorySearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySearchCell.xib; sourceTree = "<group>"; };
@@ -595,6 +603,11 @@
 				D583B8BB216ADF0E00D848C3 /* UIScrollView+Category.m */,
 				D5BE21B9217D9CEA0034EDDE /* CommonConst.h */,
 				D5BE21BA217D9CEA0034EDDE /* CommonConst.m */,
+				D56CDF6B218046E50021F215 /* IndexTableView.h */,
+				D56CDF6C218046E50021F215 /* IndexTableView.m */,
+				D56CDF6E21804AA10021F215 /* IndexTableViewCell.h */,
+				D56CDF6F21804AA10021F215 /* IndexTableViewCell.m */,
+				D56CDF7021804AA10021F215 /* IndexTableViewCell.xib */,
 				D540473F217EA605008F4007 /* SCIndexView */,
 				D558F4B72174229D00EA2C57 /* toast */,
 				D56A87BB2160723500545B6F /* PrefixHeader.pch */,
@@ -928,6 +941,7 @@
 				D578CD2C2170839300327FCD /* HistorySearchReusableView.xib in Resources */,
 				D578CD272170828E00327FCD /* HistorySearchCell.xib in Resources */,
 				D53F59B42175CCE6005A7F13 /* InformationPersonalPageCell1.xib in Resources */,
+				D56CDF7221804AA10021F215 /* IndexTableViewCell.xib in Resources */,
 				D551DF15216CA74600F9EAEF /* HistoryRecordReusableView.xib in Resources */,
 				D56A8787216067B400545B6F /* Assets.xcassets in Resources */,
 				D538C6592176BC8400EF47F2 /* IndustryInformationDetailsCell2.xib in Resources */,
@@ -1043,7 +1057,9 @@
 				D5949343217F120900DDED24 /* InformationDetailsCell2.m in Sources */,
 				D56A87BE216074C000545B6F /* HomeNavigationBar.m in Sources */,
 				D578CD262170828E00327FCD /* HistorySearchCell.m in Sources */,
+				D56CDF7121804AA10021F215 /* IndexTableViewCell.m in Sources */,
 				D5405174216D9261001C44B0 /* HistoryRecordCell.m in Sources */,
+				D56CDF6D218046E50021F215 /* IndexTableView.m in Sources */,
 				D551DF0B216C870700F9EAEF /* MyChannelCell.m in Sources */,
 				D583B8C1216AF03000D848C3 /* ClassContentCell1.m in Sources */,
 				D53F59B32175CCE6005A7F13 /* InformationPersonalPageCell1.m in Sources */,

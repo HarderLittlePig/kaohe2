@@ -69,7 +69,7 @@
         [self.sc_indexView removeFromSuperview];
         self.sc_indexView = nil;
     }
-    [self SCIndexView_removeFromSuperview];
+//    [self SCIndexView_removeFromSuperview];
 }
 
 #pragma mark - SCIndexViewDelegate
