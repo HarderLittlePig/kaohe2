@@ -36,6 +36,31 @@
     
     return [super pushViewController:viewController animated:animated];
 }
+
+- (NSArray *)popToRootViewControllerAnimated:(BOOL)animated {
+    if ( [self respondsToSelector:@selector(interactivePopGestureRecognizer)]&& animated == YES ){
+        self.interactivePopGestureRecognizer.enabled = NO;
+    }
+    return [super popToRootViewControllerAnimated:animated];
+}
+
+- (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if( [self respondsToSelector:@selector(interactivePopGestureRecognizer)] ){
+        self.interactivePopGestureRecognizer.enabled = NO;
+    }
+    return [super popToViewController:viewController animated:animated];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animate {
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]){
+        if (navigationController.childViewControllers.count == 1) {
+            self.interactivePopGestureRecognizer.enabled = NO;
+        }else {
+            self.interactivePopGestureRecognizer.enabled = YES;
+        }
+    }
+}
+
 -(void)backAction{
     [self popViewControllerAnimated:YES];
 }

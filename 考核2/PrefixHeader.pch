@@ -101,6 +101,8 @@
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import "UIView+Toast.h"
+#import "UIImage+Category.h"
+
 
 #import "SCIndexView.h"
 #import "UITableView+SCIndexView.h"

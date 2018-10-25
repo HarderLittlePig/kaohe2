@@ -57,6 +57,7 @@
 		D55515EC21756C4000BE2A44 /* IndustryInformationDetailsBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = D55515EB21756C4000BE2A44 /* IndustryInformationDetailsBottomView.m */; };
 		D558F4BA2174229E00EA2C57 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = D558F4B92174229D00EA2C57 /* UIView+Toast.m */; };
 		D558F4C1217478EE00EA2C57 /* HistorySearchFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D558F4C0217478EE00EA2C57 /* HistorySearchFlowLayout.m */; };
+		D565B9A921814D8400FF314D /* UIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = D565B9A821814D8400FF314D /* UIImage+Category.m */; };
 		D56A877F216067AB00545B6F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A877E216067AB00545B6F /* AppDelegate.m */; };
 		D56A8782216067AB00545B6F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D56A8781216067AB00545B6F /* ViewController.m */; };
 		D56A8787216067B400545B6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D56A8786216067B400545B6F /* Assets.xcassets */; };
@@ -230,6 +231,8 @@
 		D558F4B92174229D00EA2C57 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		D558F4BF217478EE00EA2C57 /* HistorySearchFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorySearchFlowLayout.h; sourceTree = "<group>"; };
 		D558F4C0217478EE00EA2C57 /* HistorySearchFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorySearchFlowLayout.m; sourceTree = "<group>"; };
+		D565B9A721814D8400FF314D /* UIImage+Category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Category.h"; sourceTree = "<group>"; };
+		D565B9A821814D8400FF314D /* UIImage+Category.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Category.m"; sourceTree = "<group>"; };
 		D56A877A216067AB00545B6F /* 考核2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "考核2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D56A877D216067AB00545B6F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D56A877E216067AB00545B6F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -601,6 +604,8 @@
 				D56A87C021607C5900545B6F /* UIView+Category.m */,
 				D583B8BA216ADF0E00D848C3 /* UIScrollView+Category.h */,
 				D583B8BB216ADF0E00D848C3 /* UIScrollView+Category.m */,
+				D565B9A721814D8400FF314D /* UIImage+Category.h */,
+				D565B9A821814D8400FF314D /* UIImage+Category.m */,
 				D5BE21B9217D9CEA0034EDDE /* CommonConst.h */,
 				D5BE21BA217D9CEA0034EDDE /* CommonConst.m */,
 				D56CDF6B218046E50021F215 /* IndexTableView.h */,
@@ -1084,6 +1089,7 @@
 				D5404746217EA605008F4007 /* SCIndexView.m in Sources */,
 				D538C6582176BC8400EF47F2 /* IndustryInformationDetailsCell2.m in Sources */,
 				D5404747217EA605008F4007 /* SCIndexViewConfiguration.m in Sources */,
+				D565B9A921814D8400FF314D /* UIImage+Category.m in Sources */,
 				D551DF10216C9E9300F9EAEF /* HistoryRecordNavigationBar.m in Sources */,
 				D56A878D216067B400545B6F /* main.m in Sources */,
 				D558F4C1217478EE00EA2C57 /* HistorySearchFlowLayout.m in Sources */,

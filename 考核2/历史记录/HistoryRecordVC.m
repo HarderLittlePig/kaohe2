@@ -17,12 +17,14 @@
 #import "IndexTableView.h"
 @interface HistoryRecordVC ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource,HistoryRecordNavigationBarDelegate>
 @property (nonatomic, strong)UICollectionView *collectionView;
-@property(nonatomic,strong)NSMutableArray *titleArray;
-@property(nonatomic,weak)UITableView *leftTable;
-@property(nonatomic,weak)UITableView *rightTable;
-@property(nonatomic,weak)UILabel *noDataLab;
+@property (nonatomic, strong)NSMutableArray *titleArray;
+@property (nonatomic, weak)UITableView *leftTable;
+@property (nonatomic, weak)UITableView *rightTable;
+@property (nonatomic, weak)UILabel *noDataLab;
 
-@property(nonatomic,strong)NSIndexPath *selectIndexPath;
+@property (nonatomic, strong)NSIndexPath *selectIndexPath;
+@property (nonatomic, strong)NSArray *dataSource;
+@property(nonatomic,strong)IndexTableView *indexT;
 @end
 //
 @implementation HistoryRecordVC
@@ -107,18 +109,65 @@
     self.rightTable = rightTable;
     
     
+    
+    
+    self.dataSource = [NSArray arrayWithObjects:@"发现",@"消息",@"厉害",@"国家",@"希望",@"你好",@"计算",@"安静",@"白色",@"采集",@"都对",@"意思",@"意识",@"魔法",@"放马",@"马上",@"分期",@"简单",@"容易",@"妖怪",@"兰花花", nil];
+    
+    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH-15, kSCREENHEIGHT-listHeight, 15, listHeight) style:UITableViewStylePlain];
+    indexT.clickIndexBlock = ^(NSInteger sectionIndex){
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
+        [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
+    };
+    [self.view addSubview:indexT];
+    self.indexT = indexT;
+    
+    NSMutableArray *set = [NSMutableArray array];
+    for (int i = 0; i < self.dataSource.count; i++) {
+        NSString *charactor = [self firstCharactor:self.dataSource[i]];
+        if (![set containsObject:charactor]) {
+            [set addObject:charactor];
+        }
+    }
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    NSArray *settionArray = [UILocalizedIndexedCollation currentCollation].sectionTitles;
+    for (int i = 0; i < set.count; i++) {
+        if ([settionArray containsObject:set[i]]) {
+            [dataArray addObject:set[i]];
+        }
+    }
+    
+    //将筛选出来的大写字母,按照顺序排好
+    indexT.array = [dataArray sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch];
+    }];
+    
+    
+    
     [self.leftTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
     [self tableView:self.leftTable didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.rightTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    
-    
-    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH-15, kSCREENHEIGHT-listHeight, 15, listHeight) style:UITableViewStylePlain];
-    [self.view addSubview:indexT];
+}
+
+//获取拼音首字母(传入汉字字符串, 返回大写拼音首字母)
+- (NSString *)firstCharactor:(NSString *)aString
+{
+    //转成了可变字符串
+    NSMutableString *str = [NSMutableString stringWithString:aString];
+    //先转换为带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+    //再转换为不带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+    //转化为大写拼音
+    NSString *pinYin = [str capitalizedString];
+    //获取并返回首字母
+    return [pinYin substringToIndex:1];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == self.rightTable) {
-        return 10;
+        return self.dataSource.count;
     }else{
         return 1;
     }
@@ -136,7 +185,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"第%ld组第%ld行",indexPath.section,indexPath.row];
+    cell.textLabel.text = self.dataSource[indexPath.row];
     cell.textLabel.font = kFONT(15);
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     cell.textLabel.highlightedTextColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
@@ -150,26 +199,43 @@
         return cell;
     }
 }
-
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (tableView == self.rightTable) {
+        return [NSString stringWithFormat:@"第%zd组",section];
+    }
+    return nil;
+}
 #pragma mark - Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+        
     if (tableView == self.leftTable) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
         [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
         [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
-        
+
         //
         HistoryRecordCell *history = [tableView cellForRowAtIndexPath:indexPath];
         history.title.textColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
         history.redLine.backgroundColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     }else{
         
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        if (![self.titleArray containsObject:cell.textLabel.text]) {
-            [self.titleArray addObject:cell.textLabel.text];
+        if (self.titleArray.count <= 9) {
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (![self.titleArray containsObject:cell.textLabel.text]) {
+                [self.titleArray addObject:cell.textLabel.text];
+            }
+            
+//            if (self.titleArray.count >= 6) {
+//                self.collectionView.height +=
+//            }else{
+//                self.collectionView.height =
+//            }
+            
+            self.noDataLab.hidden = YES;
+            [_collectionView reloadData];
+        }else{
+            [self.view makeToast:@"数量不能超过9个" duration:1.0f position:CSToastPositionCenter];
         }
-        self.noDataLab.hidden = YES;
-        [_collectionView reloadData];
     }
 }
 

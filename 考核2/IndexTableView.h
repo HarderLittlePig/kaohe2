@@ -11,4 +11,5 @@
 @interface IndexTableView : UITableView<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)NSArray *array;
+@property(nonatomic,copy)void(^clickIndexBlock)(NSInteger sectionIndex);
 @end

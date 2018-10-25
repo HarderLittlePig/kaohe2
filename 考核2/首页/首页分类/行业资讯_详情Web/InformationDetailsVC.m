@@ -47,7 +47,7 @@
     
     
     [self.contentView addSubview:self.webView];
-    [self.contentView addSubview:self.table];
+//    [self.contentView addSubview:self.table];
     
     [self.view addSubview:self.containerScrollView];
     [self.containerScrollView addSubview:self.contentView];
@@ -56,6 +56,10 @@
     self.webView.y = 0;
     self.webView.height = self.view.height;
     self.table.y = self.webView.height;
+}
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    [self.contentView addSubview:self.table];
 }
 
 #pragma mark - Observers
@@ -155,28 +159,23 @@
         self.line.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
         //
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"返回"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(backAction)];
-        //
-        //            UIImageView *iconImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 23, 23)];
-        //            iconImage.userInteractionEnabled = YES;
-        //            iconImage.image = [[UIImage imageNamed:@"moment_pic_2"] imageWithRenderingMode:UIImageRenderingModeAutomatic];
-        //            iconImage.layer.cornerRadius = 23*0.5;
-        //            iconImage.layer.masksToBounds = YES;
-        
-        
+
+        UIImage *img = [UIImage imageNamed:@"moment_pic_2"];
         UIButton *userBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         userBtn.titleLabel.font = kFONT(17);
         userBtn.hidden = NO;
-        [userBtn setTitle:@"谈资天下" forState:UIControlStateNormal];
+        userBtn.adjustsImageWhenHighlighted = NO;
+        [userBtn setTitle:@" 谈资天下" forState:UIControlStateNormal];
+        [userBtn setImage:img.cutHeaderImage forState:UIControlStateNormal];
         [userBtn setTitleColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1] forState:UIControlStateNormal];
         [userBtn addTarget:self action:@selector(jumpPersonPageAction) forControlEvents:UIControlEventTouchUpInside];
         self.userBtn = userBtn;
-        //            UIBarButtonItem *userItem1 = [[UIBarButtonItem alloc]initWithCustomView:iconImage];
         UIBarButtonItem *userItem2 = [[UIBarButtonItem alloc]initWithCustomView:userBtn];
-        //userItem1
         self.navigationItem.leftBarButtonItems = @[backItem,userItem2];
         //分享
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"xwzx_details_fx_p"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];
     }else{
+        //重新设置bar上的按钮
         [self settingNacigationBar];
         
         self.line.backgroundColor = [UIColor clearColor];
@@ -191,6 +190,7 @@
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - 52 - HOME_INDICATOR_HEIGHT) configuration:configuration];
         _webView.scrollView.scrollEnabled = NO;
         _webView.navigationDelegate = self;
+        _webView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
         NSString *path = @"https://www.jianshu.com/p/f31e39d3ce41";
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:path]];
         request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
