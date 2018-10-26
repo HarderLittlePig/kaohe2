@@ -25,6 +25,9 @@
 @property (nonatomic, strong)NSIndexPath *selectIndexPath;
 @property (nonatomic, strong)NSArray *dataSource;
 @property(nonatomic,strong)IndexTableView *indexT;
+
+@property(nonatomic,weak)UIView *listView;
+@property(nonatomic,weak)UIView *calendarV;
 @end
 //
 @implementation HistoryRecordVC
@@ -45,7 +48,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 15;
     layout.minimumInteritemSpacing = 15;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, 189) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, 219) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.contentInset = UIEdgeInsetsMake(0, 15, 30, 15);
@@ -57,49 +60,59 @@
     [self noDataBackground];
     
     
+    UIView *calendarV = [[UIView alloc]initWithFrame:CGRectMake(-20, _collectionView.height - 50, kSCREENWIDTH, 50)];
+    calendarV.backgroundColor = [UIColor clearColor];
+    [_collectionView addSubview:calendarV];
+    self.calendarV = calendarV;
     
-    UIView *separatorV = [[UIView alloc]initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT + 189, kSCREENWIDTH, 10)];
+    
+    UIView *separatorV = [[UIView alloc]initWithFrame:CGRectMake(0, (calendarV.height-10)*0.5, kSCREENWIDTH, 10)];
     separatorV.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
-    [self.view addSubview:separatorV];
+    [calendarV addSubview:separatorV];
     
     
     UIImageView *img1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wdpd_dzpd_zs"]];
-    [separatorV addSubview:img1];
+    [calendarV addSubview:img1];
     [img1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(30);
-        make.top.offset(-20);
+        make.top.offset(0);
         make.size.mas_equalTo(CGSizeMake(13, 50));
     }];
     
     UIImageView *img2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wdpd_dzpd_zs"]];
-    [separatorV addSubview:img2];
+    [calendarV addSubview:img2];
     [img2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.offset(-30);
-        make.top.offset(-20);
+        make.top.offset(0);
         make.size.mas_equalTo(CGSizeMake(13, 50));
     }];
     
-    CGFloat listHeight = kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT - _collectionView.height - 10-20-13.5;
-    //背景的view
+
+//    //背景的view
     UIView *listView = [[UIView alloc]init];
     listView.backgroundColor = kWHITECOLOR;
     [self.view addSubview:listView];
     [listView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.offset(0);
-        make.top.equalTo(img1.mas_bottom).offset(13.5);
-        make.height.offset(listHeight);
+        make.left.right.bottom.offset(0);
+        make.top.equalTo(calendarV.mas_bottom).offset(13.5);
     }];
+    self.listView = listView;
     
-    UITableView *leftTable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kSCREENWIDTH * 0.5, listHeight) style:UITableViewStylePlain];
+    
+    UITableView *leftTable = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     leftTable.showsVerticalScrollIndicator = NO;
     leftTable.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     leftTable.rowHeight = 55;
     leftTable.delegate = self;
     leftTable.dataSource = self;
     [listView addSubview:leftTable];
+    [leftTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.offset(0);
+        make.width.offset(kSCREENWIDTH *0.5);
+    }];
     self.leftTable = leftTable;
-    
-    UITableView *rightTable = [[UITableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH * 0.5, 0, kSCREENWIDTH * 0.5, listHeight) style:UITableViewStylePlain];
+
+    UITableView *rightTable = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     rightTable.showsVerticalScrollIndicator = NO;
     rightTable.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     rightTable.rowHeight = 55;
@@ -107,19 +120,25 @@
     rightTable.dataSource = self;
     [listView addSubview:rightTable];
     self.rightTable = rightTable;
-    
-    
+    [rightTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.offset(0);
+        make.width.offset(kSCREENWIDTH *0.5);
+    }];
     
     
     self.dataSource = [NSArray arrayWithObjects:@"发现",@"消息",@"厉害",@"国家",@"希望",@"你好",@"计算",@"安静",@"白色",@"采集",@"都对",@"意思",@"意识",@"魔法",@"放马",@"马上",@"分期",@"简单",@"容易",@"妖怪",@"兰花花", nil];
     
-    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectMake(kSCREENWIDTH-15, kSCREENHEIGHT-listHeight, 15, listHeight) style:UITableViewStylePlain];
+    IndexTableView *indexT = [[IndexTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     indexT.clickIndexBlock = ^(NSInteger sectionIndex){
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:sectionIndex];
         [self.rightTable scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:NO];
         [self.rightTable selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionTop];
     };
-    [self.view addSubview:indexT];
+    [listView addSubview:indexT];
+    [indexT mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.bottom.offset(0);
+        make.width.offset(15);
+    }];
     self.indexT = indexT;
     
     NSMutableArray *set = [NSMutableArray array];
@@ -205,6 +224,7 @@
     }
     return nil;
 }
+
 #pragma mark - Delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
@@ -219,17 +239,23 @@
         history.redLine.backgroundColor = [UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1];
     }else{
         
-        if (self.titleArray.count <= 9) {
+        if (self.titleArray.count < 9) {
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             if (![self.titleArray containsObject:cell.textLabel.text]) {
                 [self.titleArray addObject:cell.textLabel.text];
             }
             
-//            if (self.titleArray.count >= 6) {
-//                self.collectionView.height +=
-//            }else{
-//                self.collectionView.height =
-//            }
+            
+            //改变大小
+            if (self.titleArray.count > 6) {
+                
+                _collectionView.frame = CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, 219+50);
+                self.calendarV.frame = CGRectMake(-20, _collectionView.height - 50, kSCREENWIDTH, 50);
+                
+                [self.listView mas_updateConstraints:^(MASConstraintMaker *make) {
+                     make.top.equalTo(self.calendarV.mas_bottom).offset(13.5);
+                }];
+            }
             
             self.noDataLab.hidden = YES;
             [_collectionView reloadData];
@@ -297,6 +323,12 @@
     }else{
         self.noDataLab.hidden = YES;
     }
+    
+    //改变大小
+    if (self.titleArray.count <= 6){
+        [self changeFrame];
+    }
+    
     [self.collectionView reloadData];
 }
 
@@ -308,11 +340,26 @@
     header.deleteBlock = ^{
         [self.titleArray removeAllObjects];
         self.noDataLab.hidden = NO;
+        
+       //改变大小
+        [self changeFrame];
+        
         [collectionView reloadData];
     };
     return header;
 }
 
+#pragma mark - 改变大小
+-(void)changeFrame{
+    _collectionView.frame = CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, 219);
+    self.calendarV.frame = CGRectMake(-20, _collectionView.height - 50, kSCREENWIDTH, 50);
+    
+    [self.listView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.calendarV.mas_bottom).offset(13.5);
+    }];
+    
+    
+}
 -(void)noDataBackground{
     UILabel *noDataLab = [[UILabel alloc] init];
     noDataLab.frame = CGRectMake(22,141,81.5,13.5);

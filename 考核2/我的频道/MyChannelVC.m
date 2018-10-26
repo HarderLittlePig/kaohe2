@@ -17,6 +17,8 @@
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *titleArray;
 @property(nonatomic,assign)BOOL isBack;
+
+//@property(nonatomic,assign)
 @end
 
 @implementation MyChannelVC
@@ -149,7 +151,6 @@
     }];
     self.customChannelBtn = customChannelBtn;
     
-    
     UIImageView *bottomImageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"wdpd_bottom_bl"]];
     [bgView addSubview:bottomImageV];
     [bottomImageV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,11 +159,17 @@
     }];
 }
 
+#pragma - mark 移动
 - (void)moveAction:(UILongPressGestureRecognizer *)longGes {
 
     if (longGes.state == UIGestureRecognizerStateBegan) {
 
         NSIndexPath *selectPath = [self.collectionView indexPathForItemAtPoint:[longGes locationInView:longGes.view]];
+        
+        if (selectPath == [NSIndexPath indexPathForItem:0 inSection:0]) {
+            return;
+        }
+        
 //        MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:selectPath];
 //        cell.deleteBtn.hidden = NO;
 //        [cell.deleteBtn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -179,25 +186,25 @@
         [self.collectionView cancelInteractiveMovement];
 
     }
+    
+    if (@available(iOS 11.0, *)) {
+        
+    }
 }
 
-
+#pragma - mark 删除
 - (void)deleteItemAction:(UIButton *)btn {
     [self.titleArray removeObjectAtIndex:btn.tag];
     [self.collectionView reloadData];
+
     NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
     [self.titleArray writeToFile:path atomically:YES];
     
     
     //是否可以点击删除
-    for (int i = 0; i < self.titleArray.count; i++) {
-        if (i > 0) {
-            MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
-            cell.deleteBtn.hidden = NO;
-        }
-    }
+//    MyChannelCell *cell = (MyChannelCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+//    cell.deleteBtn.hidden = NO;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.titleArray.count;
@@ -213,19 +220,27 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MyChannelCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.title.text = self.titleArray[indexPath.item];
-    cell.deleteBtn.hidden = YES;
+    cell.deleteBtn.hidden = _isBack;
+    
+    if (indexPath.item == 0) {
+        cell.deleteBtn.hidden = YES;
+    }
+    
     [cell.deleteBtn addTarget:self action:@selector(deleteItemAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.deleteBtn.tag = indexPath.item;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-//    if (<#condition#>) {
-//        <#statements#>
-//    }
+    //长按的是第一个则不能移动
+    if (sourceIndexPath == [NSIndexPath indexPathForItem:0 inSection:0]) {
+        return;
+    }
+    
     [self.titleArray exchangeObjectAtIndex:sourceIndexPath.item withObjectAtIndex:destinationIndexPath.item];
     [self.collectionView reloadData];
     
+    //本地化存储
     NSString *path  = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:@"MyChannelPlist.plist"];
     [self.titleArray writeToFile:path atomically:YES];
 }
@@ -259,6 +274,7 @@
     self.resetChannelBtn.hidden = sender.selected;
     self.customChannelBtn.hidden = sender.selected;   
     
+    //添加长按手势
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(moveAction:)];
     
     if (sender.selected) {

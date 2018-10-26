@@ -74,7 +74,7 @@
     NSInteger count = self.childViewControllers.count;
     self.buttonArray = [NSMutableArray array];
     CGFloat x = 0;//保存前一个button的宽以及前一个button距离屏幕边缘的距离(本质就是下一个按钮的x的值)
-    CGFloat contentSizeW = 0;
+    CGFloat contentSizeW = 0;//标题内容的总宽度
     for (int i = 0; i < count; i++) {
         UIButton *titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [titleButton setTitle:self.childViewControllers[i].title forState:UIControlStateNormal];
@@ -123,9 +123,7 @@
     [titleView addSubview:titleBottomView];
     self.titleBottomView = titleBottomView;
     
-    
-    
-    
+    //默认选中第一个按钮
     UIButton *firstButton = self.buttonArray.firstObject;
     [self tapAction:firstButton];
 }
@@ -180,27 +178,20 @@
     [self.titleView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
-
-
 -(void)textFieldDidBeginEditing:(HomeNavigationBar *)searchBar{
     HistorySearchVC *ccc = [[HistorySearchVC alloc]init];
     [self.navigationController pushViewController:ccc animated:YES];
 }
 
-//频道按钮的点击方法
-
-
 -(void)tapAction:(UIButton *)sender{
     self.selectButton.selected = NO;
     sender.selected = YES;
     
+    //对选中和非选中的按钮分别设置字重(字体是否需要加粗)
     sender.titleLabel.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:15];
     self.selectButton.titleLabel.font = kFONT(15);
     
     self.selectButton = sender;
-    
-    
-    
     
     // 底部控件的位置和尺寸
     [UIView animateWithDuration:0.25 animations:^{
