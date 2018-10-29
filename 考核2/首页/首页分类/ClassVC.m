@@ -37,6 +37,8 @@
     
     [self requestMoreData];
     
+    
+    //虚拟数据
     self.dataArray = [NSMutableArray array];
     for (int i = 0; i < 13; i++) {
         ClassModel *model = [[ClassModel alloc]init];

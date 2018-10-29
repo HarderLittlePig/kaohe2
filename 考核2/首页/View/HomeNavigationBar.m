@@ -27,21 +27,13 @@
     [_backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_backButton];
     
-    _classButton = [[UIButton alloc]init];
-    _classButton.titleLabel.font = kFONT(9);
-    
-    // button标题的偏移量
-    _classButton.titleEdgeInsets = UIEdgeInsetsMake(_classButton.imageView.frame.size.height+5, -_classButton.imageView.bounds.size.width, 0,0);
-    // button图片的偏移量
-    _classButton.imageEdgeInsets = UIEdgeInsetsMake(0, _classButton.titleLabel.frame.size.width/2, _classButton.titleLabel.frame.size.height+5, -_classButton.titleLabel.frame.size.width/2);
-    
-    
-    _classButton.frame = CGRectMake(self.width - 37, kSTATUSBARHEIGH, 37, self.height -kSTATUSBARHEIGH);
+    _classButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _classButton.adjustsImageWhenHighlighted = NO;
+    _classButton.frame = CGRectMake(self.width - 37, kSTATUSBARHEIGH-5, 37, self.height -kSTATUSBARHEIGH);
     [_classButton setImage:[UIImage imageNamed:@"xwzx_fl"] forState:UIControlStateNormal];
-    [_classButton setTitle:@"分类" forState:UIControlStateNormal];
-    [_classButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_classButton addTarget:self action:@selector(classAction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_classButton];
+    
     
     CGFloat wid = self.width - _backButton.width - _classButton.width;
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(37,y,wid,30)];
@@ -61,6 +53,14 @@
     _inputField.delegate = self;
     _inputField.clearButtonMode = UITextFieldViewModeWhileEditing;
     [bgView addSubview:_inputField];
+    
+    UIButton *closeTitle = [[UIButton alloc]init];
+    closeTitle.frame = CGRectMake(self.width - 37, self.height-17, 37, 15);
+    closeTitle.titleLabel.font = kFONT(9);
+    [closeTitle setTitle:@"分类" forState:UIControlStateNormal];
+    [closeTitle setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [closeTitle addTarget:self action:@selector(classAction) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:closeTitle];
 }
 
 //输入框获取到焦点

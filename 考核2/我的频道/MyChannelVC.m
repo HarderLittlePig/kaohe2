@@ -79,30 +79,7 @@
     self.titleArray = [NSMutableArray arrayWithContentsOfFile:path];
     _isBack = YES;
     
-    /*
-    //每一行的数
-    int Count = 3;
-    //四个间距都是30，总间距是120
-    CGFloat width = (kSCREENWIDTH - 60)/Count;
-    
-    for (int i = 0; i < titleArray.count; i++) {
-        NSString *btnTitle = titleArray[i];
-        UIButton *channelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [channelBtn setTitle:btnTitle forState:UIControlStateNormal];
-        [channelBtn setBackgroundImage:[UIImage imageNamed:@"wdpd_nr_bg"] forState:UIControlStateNormal];
-        channelBtn.titleLabel.font = kFONT(15);
-        channelBtn.adjustsImageWhenHighlighted = NO;
-        [channelBtn setTitleColor:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1] forState:UIControlStateNormal];
-        [channelBtn addTarget:self action:@selector(jumpToChannelAction:) forControlEvents:UIControlEventTouchUpInside];
-        [bgView addSubview:channelBtn];
-        
-        CGFloat y = 59.5 + i / Count * 50;
-        int loc = i % Count;
-        CGFloat x = 15 + (15 + width) * loc;
-        channelBtn.frame = CGRectMake(x, y, width, 40);
-    }
-    */
-    
+
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 15;
     layout.minimumInteritemSpacing = 15;
@@ -119,7 +96,7 @@
     UIButton *resetChannelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [resetChannelBtn setTitle:@" 重 置" forState:UIControlStateNormal];
     [resetChannelBtn setTitleColor:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1] forState:UIControlStateNormal];
-    resetChannelBtn.titleLabel.font = kFONT(15);
+    resetChannelBtn.titleLabel.font = kFONT(15*Iphone6ScaleWidth);
     resetChannelBtn.adjustsImageWhenHighlighted = NO;
     [resetChannelBtn setImage:[UIImage imageNamed:@"wdpd_cz_icon"] forState:UIControlStateNormal];
     resetChannelBtn.backgroundColor = [UIColor colorWithRed:246/255.0 green:247/255.0 blue:251/255.0 alpha:1];
@@ -127,8 +104,8 @@
     [resetChannelBtn addTarget:self action:@selector(resetChannelAction) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:resetChannelBtn];
     [resetChannelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(50);
-        make.size.mas_equalTo(CGSizeMake(120, 40));
+        make.left.offset(50*Iphone6ScaleWidth);
+        make.size.mas_equalTo(CGSizeMake(120*Iphone6ScaleWidth, 40*Iphone6ScaleHeight));
         make.top.offset(318);
     }];
     self.resetChannelBtn = resetChannelBtn;
@@ -137,7 +114,7 @@
     UIButton *customChannelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [customChannelBtn setTitle:@" 定制频道" forState:UIControlStateNormal];
     [customChannelBtn setTitleColor:[UIColor colorWithRed:219/255.0 green:49/255.0 blue:23/255.0 alpha:1] forState:UIControlStateNormal];
-    customChannelBtn.titleLabel.font = kFONT(15);
+    customChannelBtn.titleLabel.font = kFONT(15*Iphone6ScaleWidth);
     customChannelBtn.adjustsImageWhenHighlighted = NO;
     [customChannelBtn setImage:[UIImage imageNamed:@"组 4"] forState:UIControlStateNormal];
     customChannelBtn.backgroundColor = [UIColor colorWithRed:255/255.0 green:236/255.0 blue:236/255.0 alpha:1];
@@ -145,8 +122,8 @@
     [customChannelBtn addTarget:self action:@selector(jumpToCustomChannelVC) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:customChannelBtn];
     [customChannelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.offset(-50);
-        make.size.mas_equalTo(CGSizeMake(120, 40));
+        make.right.offset(-50*Iphone6ScaleWidth);
+        make.size.mas_equalTo(CGSizeMake(120*Iphone6ScaleWidth, 40*Iphone6ScaleHeight));
         make.top.offset(318);
     }];
     self.customChannelBtn = customChannelBtn;

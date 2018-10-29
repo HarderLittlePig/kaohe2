@@ -58,16 +58,16 @@
         
         //添加一个组头
         UICollectionViewLayoutAttributes *headerAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader withIndexPath:[NSIndexPath indexPathForItem:0 inSection:k]];
-        headerAttributes.frame = CGRectMake(0, verticalHeight + k*50, kSCREENWIDTH, 50);
+        headerAttributes.frame = CGRectMake(0, verticalHeight + k*30, kSCREENWIDTH, 50);
         [self.attributesArray addObject:headerAttributes];
         //相当于添加了一行
         [lineNum addObject:@1];
         [lineWidth addObject:@(kSCREENWIDTH)];
         //添加组头，不需要计算组头的高度，单元格会自动适配到组头下面
         if (k == 0) {
-            verticalHeight += 10;
+            verticalHeight += 20;
         }else{
-            verticalHeight += 60;
+            verticalHeight += 40;
         }
         
         index ++;
@@ -89,20 +89,20 @@
             }else{
                 //如果添加一个单元格，此行宽度大于控件宽度，那就另起一行
                 index++;
-                verticalHeight += 50;
+                verticalHeight += 40;
                 Y = verticalHeight;
                 X = 10.0;
                 [lineNum addObject:@(1)];
                 [lineWidth addObject:@(width+10+10)];
             }
             
-            attributes.frame = CGRectMake(X, Y, width, 40);
+            attributes.frame = CGRectMake(X, Y, width, 31*Iphone6ScaleHeight);
             [self.attributesArray addObject:attributes];
             
             //设置平均item属性
             int maxIndex = [self computerMAXlineWithArray:lineWidth];
             CGFloat aveWidth = ([lineWidth[maxIndex] floatValue]-[lineNum[maxIndex] intValue]*10-10)/[lineNum[maxIndex] intValue];
-            self.itemSize = CGSizeMake(aveWidth, 40);
+            self.itemSize = CGSizeMake(aveWidth, 31*Iphone6ScaleHeight);
             
         }
     }

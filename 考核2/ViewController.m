@@ -94,7 +94,7 @@
     
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(50, 50, 100, 40);
+    btn.frame = CGRectMake(30, 50, 100, 40);
     [btn setTitle:@"三方分享" forState:UIControlStateNormal];
     [btn setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(share) forControlEvents:UIControlEventTouchUpInside];
@@ -102,11 +102,27 @@
     
     
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn1.frame = CGRectMake(50, 500, 100, 40);
-    [btn1 setTitle:@"三方登录" forState:UIControlStateNormal];
+    btn1.frame = CGRectMake(130, 400, 100, 40);
+    [btn1 setTitle:@"微信登录" forState:UIControlStateNormal];
     [btn1 setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
-    [btn1 addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [btn1 addTarget:self action:@selector(getAuthWithUserInfoFromWechat) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn2.frame = CGRectMake(50, 400, 70, 40);
+    [btn2 setTitle:@"QQ登录" forState:UIControlStateNormal];
+    [btn2 setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(getAuthWithUserInfoFromQQ) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
+    UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn3.frame = CGRectMake(230, 400, 130, 40);
+    [btn3 setTitle:@"新浪微博登录" forState:UIControlStateNormal];
+    [btn3 setTitleColor:kBLACKCOLOR forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(getAuthWithUserInfoFromSina) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
+    
+    
     
     
     NSDate *dayTime = [NSDate dateWithTimeIntervalSince1970:60 * 60 * 9];
@@ -141,11 +157,6 @@
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         [self shareWebPageToPlatformType:platformType];
     }];
-}
-
--(void)login{
-    //微信登录
-    [self getAuthWithUserInfoFromWechat];
 }
 
 -(void)shareAction:(UIButton *)sender{
@@ -284,6 +295,19 @@
             
             // 第三方平台SDK源数据
             NSLog(@"Sina originalResponse: %@", resp.originalResponse);
+            
+            
+            [self.view makeToast:[NSString stringWithFormat:@"用户%@,登录成功",self.userName] duration:1.0f position:CSToastPositionCenter];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (self.userName) {
+                    [NSThread sleepForTimeInterval:1.0f];
+                    HomeVC *h = [[HomeVC alloc]init];
+                    [self.navigationController pushViewController:h animated:YES];
+                }else{
+                    [self.view makeToast:@"登录失败" duration:1.0f position:CSToastPositionCenter];
+                }
+            });
         }
     }];
 }
@@ -311,6 +335,19 @@
             
             // 第三方平台SDK源数据
             NSLog(@"QQ originalResponse: %@", resp.originalResponse);
+            
+            
+            [self.view makeToast:[NSString stringWithFormat:@"用户%@,登录成功",self.userName] duration:1.0f position:CSToastPositionCenter];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (self.userName) {
+                    [NSThread sleepForTimeInterval:1.0f];
+                    HomeVC *h = [[HomeVC alloc]init];
+                    [self.navigationController pushViewController:h animated:YES];
+                }else{
+                    [self.view makeToast:@"登录失败" duration:1.0f position:CSToastPositionCenter];
+                }
+            });
         }
     }];
 }

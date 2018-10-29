@@ -66,13 +66,11 @@
     layout.dataList = @[self.historyArray,self.hotArray];
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
-    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kNAVIGTAIONBARHEIGHT, kSCREENWIDTH, kSCREENHEIGHT - kNAVIGTAIONBARHEIGHT) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    _collectionView.contentInset = UIEdgeInsetsMake(0, 10, 0, 10);
+    _collectionView.scrollEnabled = NO;
     _collectionView.backgroundColor = kWHITECOLOR;
     
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([HistorySearchCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([HistorySearchCell class])];

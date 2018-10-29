@@ -60,7 +60,7 @@
     titleView.bounces = NO;
     titleView.showsVerticalScrollIndicator = NO;
     titleView.showsHorizontalScrollIndicator = NO;
-    titleView.frame = CGRectMake(0,0,kSCREENWIDTH - 60,titleBGView.height);
+    titleView.frame = CGRectMake(0,0,kSCREENWIDTH - 40,titleBGView.height);
     [titleBGView addSubview:titleView];
     self.titleView = titleView;
     
@@ -169,8 +169,8 @@
         offsetX = 0;
     }
     
-    //多加60是因为标题背景视图没有全屏的宽
-    CGFloat maxoffsetX = self.titleView.contentSize.width - kSCREENWIDTH + 60;
+    //多加40是因为标题背景视图没有全屏的宽
+    CGFloat maxoffsetX = self.titleView.contentSize.width - kSCREENWIDTH + 40;
     if (offsetX > maxoffsetX) {
         offsetX = maxoffsetX;
     }
@@ -184,6 +184,9 @@
 }
 
 -(void)tapAction:(UIButton *)sender{
+    //这里判断一下本次点击的按钮和上次点击的按钮是否一致,若一致直接返回,否则才会继续执行(解决重复点击同一按钮造成的字重错误问题)
+    if (sender == self.selectButton) return;
+    
     self.selectButton.selected = NO;
     sender.selected = YES;
     

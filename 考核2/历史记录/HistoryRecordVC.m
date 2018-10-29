@@ -88,7 +88,7 @@
     }];
     
 
-//    //背景的view
+    //背景的view
     UIView *listView = [[UIView alloc]init];
     listView.backgroundColor = kWHITECOLOR;
     [self.view addSubview:listView];
@@ -245,7 +245,6 @@
                 [self.titleArray addObject:cell.textLabel.text];
             }
             
-            
             //改变大小
             if (self.titleArray.count > 6) {
                 
@@ -357,9 +356,8 @@
     [self.listView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.calendarV.mas_bottom).offset(13.5);
     }];
-    
-    
 }
+
 -(void)noDataBackground{
     UILabel *noDataLab = [[UILabel alloc] init];
     noDataLab.frame = CGRectMake(22,141,81.5,13.5);
